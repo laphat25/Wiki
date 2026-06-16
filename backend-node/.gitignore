@@ -1,0 +1,17 @@
+# Dependencies
+node_modules/
+
+# Environment
+.env
+
+# SQLite data
+data/
+*.sqlite
+*.sqlite-wal
+*.sqlite-shm
+
+# Uploads
+uploads/
+
+# Logs
+*.log

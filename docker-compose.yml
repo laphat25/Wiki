@@ -1,0 +1,30 @@
+version: '3.8'
+
+services:
+  wiki:
+    build:
+      context: .
+      dockerfile: backend-node/Dockerfile
+    ports:
+      - '3000:3000'
+    environment:
+      NODE_ENV: production
+      PORT: 3000
+      SESSION_SECRET: ${SESSION_SECRET:-change_this_to_a_long_random_string_at_least_32_chars}
+      CORS_ORIGINS: ${CORS_ORIGINS:-http://localhost:3000}
+      DATABASE_PATH: /app/data/database.sqlite
+      SESSION_DB_PATH: /app/data/sessions.sqlite
+      LOG_LEVEL: info
+    volumes:
+      - wiki-data:/app/data
+      - wiki-uploads:/app/uploads
+    restart: unless-stopped
+    healthcheck:
+      test: ['CMD', 'wget', '-qO-', 'http://localhost:3000/api/health']
+      interval: 30s
+      timeout: 5s
+      retries: 3
+
+volumes:
+  wiki-data:
+  wiki-uploads:

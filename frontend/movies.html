@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Danh sách phim dài Doraemon — Doraemon Wiki</title>
+  <meta name="description"
+    content="Danh sách đầy đủ 43 phim điện ảnh dài của Doraemon từ năm 1980 đến nay, bao gồm tên tiếng Việt, tên Nhật và năm phát hành.">
+  <link rel="stylesheet" href="assets/css/global.css">
+  <link rel="stylesheet" href="assets/css/components.css">
+  <link rel="stylesheet" href="assets/css/pages.css">
+</head>
+
+<body>
+
+  <!-- NAV -->
+  <nav class="nav">
+    <div class="container nav__inner">
+      <a class="nav__logo" href="index.html">
+        <div class="nav__logo-icon">🔔</div>
+        <span>Doraemon<strong>Wiki</strong></span>
+      </a>
+      <ul class="nav__links">
+        <li class="nav__link"><a href="index.html">Trang Chủ</a></li>
+        <li class="nav__link"><a href="movies.html" class="active">🎬 Phim Dài</a></li>
+        <li class="nav__link"><a href="about.html">📝 Giới Thiệu</a></li>
+      </ul>
+      <div class="nav__actions">
+        <!-- Search -->
+        <div class="nav__search-wrapper">
+          <form class="nav__search" id="navSearchForm">
+            <input type="text" id="navSearchInput" placeholder="Tìm phim..." autocomplete="off" />
+            <button type="submit" class="nav__search-btn" aria-label="Tìm kiếm">🔍</button>
+          </form>
+          <div class="nav__search-dropdown" id="navSearchDropdown"></div>
+        </div>
+        <!-- Auth dropdown -->
+        <div class="nav__auth-wrapper">
+          <button class="nav__auth-btn" id="navAuthBtn" aria-haspopup="true" aria-expanded="false">
+            <!-- filled by JS -->
+          </button>
+          <div class="nav__auth-panel" id="navAuthPanel" role="menu">
+            <!-- filled by JS -->
+          </div>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <header class="movies-hero">
+    <div class="container">
+      <div class="movies-hero__eyebrow">🎬 Điện ảnh</div>
+      <h1 class="movies-hero__title">PHIM DÀI<br><span>DORAEMON</span></h1>
+      <p class="movies-hero__sub">Khám phá toàn bộ 43 tác phẩm điện ảnh của Doraemon từ 1980 đến nay</p>
+      <div class="movies-stats">
+        <div class="movies-stat">
+          <div class="movies-stat__num" id="totalMovies">43</div>
+          <div class="movies-stat__label">Phim dài</div>
+        </div>
+        <div class="movies-stat">
+          <div class="movies-stat__num">1980</div>
+          <div class="movies-stat__label">Năm đầu tiên</div>
+        </div>
+        <div class="movies-stat">
+          <div class="movies-stat__num">44+</div>
+          <div class="movies-stat__label">Năm chiếu</div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- CONTROLS & GRID SECTION -->
+  <section class="movies-section">
+    <div class="container">
+
+      <!-- Filter Controls -->
+      <div class="movies-controls-bar">
+        <!-- Era Filter Tabs -->
+        <div class="era-filter" id="eraFilter">
+          <button class="era-btn active" data-era="all">Tất cả</button>
+          <button class="era-btn" data-era="1980">Thập niên 80</button>
+          <button class="era-btn" data-era="1990">Thập niên 90</button>
+          <button class="era-btn" data-era="2000">Thập niên 2000</button>
+          <button class="era-btn" data-era="2010">Thập niên 2010+</button>
+        </div>
+
+        <!-- Add Movie button (editor/admin only) -->
+        <button class="btn btn--primary" id="addMovieBtn" style="display:none; padding: 8px 20px; font-size: 13px; border-radius: 20px;">
+          ➕ Thêm Phim Mới
+        </button>
+
+        <!-- View Toggle + Count -->
+        <div class="movies-controls-right">
+          <span class="movies-count" id="movieCount">43 phim</span>
+          <div class="view-toggle">
+            <button class="view-btn active" id="viewGrid" title="Dạng lưới" aria-label="Dạng lưới">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
+            </button>
+            <button class="view-btn" id="viewList" title="Dạng danh sách" aria-label="Dạng danh sách">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- CARD GRID (default) -->
+      <div class="movies-grid" id="moviesGrid">
+        <!-- Skeleton placeholders while loading -->
+        <div class="movie-card movie-card--skeleton" aria-hidden="true">
+          <div class="movie-card__poster"></div>
+          <div class="movie-card__body">
+            <div class="sk-line sk-line--80"></div>
+            <div class="sk-line sk-line--50"></div>
+          </div>
+        </div>
+        <div class="movie-card movie-card--skeleton" aria-hidden="true">
+          <div class="movie-card__poster"></div>
+          <div class="movie-card__body">
+            <div class="sk-line sk-line--80"></div>
+            <div class="sk-line sk-line--50"></div>
+          </div>
+        </div>
+        <div class="movie-card movie-card--skeleton" aria-hidden="true">
+          <div class="movie-card__poster"></div>
+          <div class="movie-card__body">
+            <div class="sk-line sk-line--80"></div>
+            <div class="sk-line sk-line--50"></div>
+          </div>
+        </div>
+        <div class="movie-card movie-card--skeleton" aria-hidden="true">
+          <div class="movie-card__poster"></div>
+          <div class="movie-card__body">
+            <div class="sk-line sk-line--80"></div>
+            <div class="sk-line sk-line--50"></div>
+          </div>
+        </div>
+        <div class="movie-card movie-card--skeleton" aria-hidden="true">
+          <div class="movie-card__poster"></div>
+          <div class="movie-card__body">
+            <div class="sk-line sk-line--80"></div>
+            <div class="sk-line sk-line--50"></div>
+          </div>
+        </div>
+        <div class="movie-card movie-card--skeleton" aria-hidden="true">
+          <div class="movie-card__poster"></div>
+          <div class="movie-card__body">
+            <div class="sk-line sk-line--80"></div>
+            <div class="sk-line sk-line--50"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- LIST VIEW (hidden by default) -->
+      <div class="movies-table-wrap" id="moviesListView" style="display:none">
+        <table class="movies-table" id="moviesTable">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Tên phim tiếng Việt</th>
+              <th>Năm</th>
+              <th>Ngày chiếu (Nhật)</th>
+              <th>Đạo diễn</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody id="moviesBody"></tbody>
+        </table>
+      </div>
+
+      <!-- Empty state -->
+      <div class="movies-empty" id="moviesEmpty" style="display:none">
+        <div class="empty-state__emoji">🔍</div>
+        <div class="empty-state__title">Không tìm thấy phim</div>
+        <p style="color:var(--text-muted);margin-top:8px">Hãy thử tìm kiếm với từ khóa khác</p>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="container footer__inner">
+      <div class="footer__brand">
+        <span class="nav__logo-icon">🔔</span>
+        <span class="footer__brand-name">Doraemon<strong>Wiki</strong></span>
+      </div>
+      <p class="footer__copy">Fan-made · Không có bản quyền thương mại</p>
+    </div>
+  </footer>
+
+    <!-- ========== ADD MOVIE MODAL (editor/admin only) ========== -->
+  <div class="modal-overlay" id="addWikiModal" aria-hidden="true" role="dialog">
+    <div class="modal" style="width: 600px; max-width: 100%;">
+      <div class="modal__header">
+        <div class="modal__emoji">➕</div>
+        <div>
+          <h3 class="modal__title">Thêm Phim Mới</h3>
+          <div class="modal__subtitle">Tạo mới bản ghi phim điện ảnh dài</div>
+        </div>
+      </div>
+      <form id="addWikiForm" style="display: flex; flex-direction: column; gap: var(--space-4); padding: var(--space-6);">
+        <div class="form-row" style="display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-4);">
+          <div style="display: flex; flex-direction: column; gap: var(--space-1);">
+            <label for="wikiTitleVi" style="font-size: 11px; color: var(--text-muted); font-weight: 600;">Tiêu đề tiếng Việt</label>
+            <input type="text" id="wikiTitleVi" class="trailer-url-input" required />
+          </div>
+          <div style="display: flex; flex-direction: column; gap: var(--space-1);">
+            <label for="wikiTitleJp" style="font-size: 11px; color: var(--text-muted); font-weight: 600;">Tiêu đề tiếng Nhật</label>
+            <input type="text" id="wikiTitleJp" class="trailer-url-input" />
+          </div>
+        </div>
+
+        <div class="form-row" style="display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-4);">
+          <div style="display: flex; flex-direction: column; gap: var(--space-1);">
+            <label for="wikiReleaseYear" style="font-size: 11px; color: var(--text-muted); font-weight: 600;">Năm phát hành</label>
+            <input type="number" id="wikiReleaseYear" class="trailer-url-input" required />
+          </div>
+          <div style="display: flex; flex-direction: column; gap: var(--space-1);">
+            <label for="wikiReleaseDate" style="font-size: 11px; color: var(--text-muted); font-weight: 600;">Ngày chiếu (Nhật)</label>
+            <input type="text" id="wikiReleaseDate" class="trailer-url-input" placeholder="DD/MM/YYYY" />
+          </div>
+        </div>
+
+        <div class="form-row" style="display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-4);">
+          <div style="display: flex; flex-direction: column; gap: var(--space-1);">
+            <label for="wikiDirector" style="font-size: 11px; color: var(--text-muted); font-weight: 600;">Đạo diễn</label>
+            <input type="text" id="wikiDirector" class="trailer-url-input" />
+          </div>
+          <div style="display: flex; flex-direction: column; gap: var(--space-1);">
+            <label for="wikiBoxOffice" style="font-size: 11px; color: var(--text-muted); font-weight: 600;">Doanh thu phòng vé</label>
+            <input type="text" id="wikiBoxOffice" class="trailer-url-input" />
+          </div>
+        </div>
+
+        <div style="display: flex; flex-direction: column; gap: var(--space-1);">
+          <label for="wikiThemeSong" style="font-size: 11px; color: var(--text-muted); font-weight: 600;">Ca khúc chủ đề</label>
+          <input type="text" id="wikiThemeSong" class="trailer-url-input" />
+        </div>
+
+        <div style="display: flex; flex-direction: column; gap: var(--space-1);">
+          <label for="wikiPlot" style="font-size: 11px; color: var(--text-muted); font-weight: 600;">Tóm tắt cốt truyện</label>
+          <textarea id="wikiPlot" class="trailer-url-input" rows="4" style="font-family: inherit; resize: vertical;"></textarea>
+        </div>
+
+        <div style="display: flex; align-items: center; gap: 10px; margin: var(--space-2) 0;">
+          <input type="checkbox" id="wikiIsFeatured" style="width: 16px; height: 16px; cursor: pointer;" />
+          <label for="wikiIsFeatured" style="font-size: 13px; font-weight: 500; cursor: pointer; color: white;">Phim nổi bật (hiển thị trang chủ)</label>
+        </div>
+
+        <div class="modal__footer" style="padding: 0; border: none; justify-content: flex-end; gap: var(--space-2);">
+          <button type="button" class="btn btn--secondary" id="addWikiCancel" style="padding: 10px 20px;">Hủy</button>
+          <button type="submit" class="btn btn--primary" id="addWikiSubmit" style="padding: 10px 20px;">Thêm Phim</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+<script src="assets/js/config.js"></script>
+  <script src="assets/js/utils.js"></script>
+  <script src="assets/js/api.js"></script>
+  <script src="assets/js/favorites.js"></script>
+  <script src="assets/js/error-banner.js"></script>
+  <script src="assets/js/auth.js"></script>
+  <script src="assets/js/search.js"></script>
+  <script src="assets/js/components/movie-card.js"></script>
+  <script src="assets/js/pages/movies.js"></script>
+  <script src="assets/js/main.js"></script>
+</body>
+
+</html>

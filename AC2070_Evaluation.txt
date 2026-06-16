@@ -1,0 +1,42 @@
+# AC2070 EVALUATION RUBRIC
+# Format: REQUIREMENT | SCORE_MULTIPLY | SCORE_DIVIDE
+# Scores: multiply = points earned if done correctly, divide = partial/base points
+# Special: penalty -10 for copying or using pre-built libraries
+
+---
+SECTION: WEBSITE
+
+REQ: Store data using a database | MULTIPLY: 1 | DIVIDE: 1
+REQ: Login/logout with username + password, distinguish 2 roles (admin, user) | MULTIPLY: 1 | DIVIDE: 1
+REQ: Page that displays different content by content ID (product/article/etc.) | MULTIPLY: 1 | DIVIDE: 1
+  SUB: Comment and rating form on content page (fields: name, email, content body, rating score) | MULTIPLY: 0.5 | DIVIDE: 0.5
+  SUB: Submitted comments and ratings are publicly visible | MULTIPLY: 0.5 | DIVIDE: 0.5
+REQ: Homepage shows popup ad for a predefined product after 1 minute of page load | MULTIPLY: 1 | DIVIDE: 1
+  SUB: When user closes popup, it does NOT reappear on next visit (implemented via cookie) | MULTIPLY: 0.5 | DIVIDE: 0.5
+REQ: About/Introduction and Contact Information page | MULTIPLY: 0.5 | DIVIDE: 0.5
+  SUB: Contact/feedback submission form | MULTIPLY: 0.5 | DIVIDE: 0.5
+REQ: Admin panel | MULTIPLY: 1 | DIVIDE: 1
+  SUB: Display total view count across entire website | MULTIPLY: 0.5 | DIVIDE: 0 [NOT SCORED IN DIVIDE]
+  SUB: Allow updating content on content pages | MULTIPLY: 0.5 | DIVIDE: 0 [NOT SCORED IN DIVIDE]
+  SUB: Allow listing and deleting user comments | MULTIPLY: 0.5 | DIVIDE: 0 [NOT SCORED IN DIVIDE]
+REQ: Responsive UI with 3 breakpoints defined at 800px and 1200px | MULTIPLY: 1 | DIVIDE: 1
+REQ: UI/UX design and visual presentation quality | MULTIPLY: 1 | DIVIDE: 0 [NOT SCORED IN DIVIDE]
+REQ: Project code organization/structure | MULTIPLY: 1 | DIVIDE: 0 [NOT SCORED IN DIVIDE]
+PENALTY: Copying code or using pre-built libraries | MULTIPLY: -10 | DIVIDE: 0
+
+
+Tài khoản Admin (Quản trị viên):
+
+Tên đăng nhập: admin (hoặc email: admin@example.com)
+Mật khẩu: adminpass
+Quyền hạn: Toàn quyền (xem dashboard thống kê, quản lý/xóa bình luận, chỉnh sửa thông tin phim, thêm phim mới, xóa phim).
+Tài khoản Editor (Biên tập viên):
+
+Tên đăng nhập: editor (hoặc email: editor@example.com)
+Mật khẩu: editorpass
+Quyền hạn: Được phép chỉnh sửa thông tin phim, thêm phim mới, xóa phim (nhưng không vào được trang quản trị dashboard admin.html).
+Tài khoản User (Người dùng thường):
+
+Tên đăng nhập: person (hoặc email: person@example.com)
+Mật khẩu: personpass
+Quyền hạn: Chỉ đọc, bình luận và đánh giá sao (không có quyền thêm, sửa, xóa phim).

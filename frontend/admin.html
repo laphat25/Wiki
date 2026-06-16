@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Bảng Quản Trị — Doraemon Wiki</title>
+  <link rel="stylesheet" href="assets/css/global.css" />
+  <link rel="stylesheet" href="assets/css/components.css" />
+  <link rel="stylesheet" href="assets/css/pages.css" />
+  <style>
+    .admin-stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: var(--space-4);
+      margin-bottom: var(--space-8);
+    }
+    .admin-stat-card {
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: var(--radius-md);
+      padding: var(--space-5);
+      text-align: center;
+      backdrop-filter: blur(10px);
+    }
+    .admin-stat-card__num {
+      font-size: 2.5rem;
+      font-weight: 800;
+      color: var(--accent-cyan);
+      margin-bottom: var(--space-1);
+    }
+    .admin-stat-card__label {
+      font-size: 12px;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+    .admin-tabs {
+      display: flex;
+      gap: var(--space-3);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      margin-bottom: var(--space-6);
+    }
+    .admin-tab-btn {
+      background: transparent;
+      border: none;
+      color: var(--text-muted);
+      padding: var(--space-3) var(--space-5);
+      font-family: 'Outfit', sans-serif;
+      font-weight: 700;
+      font-size: 15px;
+      cursor: pointer;
+      border-bottom: 2px solid transparent;
+      transition: all var(--transition);
+    }
+    .admin-tab-btn.active {
+      color: var(--accent-yellow);
+      border-bottom-color: var(--accent-yellow);
+    }
+    .admin-table-container {
+      background: rgba(15, 23, 42, 0.4);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: var(--radius-lg);
+      padding: var(--space-4);
+      backdrop-filter: blur(20px);
+      overflow-x: auto;
+    }
+    .admin-table {
+      width: 100%;
+      border-collapse: collapse;
+      text-align: left;
+      font-size: 13px;
+    }
+    .admin-table th {
+      color: var(--text-muted);
+      font-weight: 600;
+      padding: var(--space-3);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      text-transform: uppercase;
+      font-size: 11px;
+    }
+    .admin-table td {
+      padding: var(--space-3);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+      color: white;
+    }
+    .admin-table tr:hover td {
+      background: rgba(255, 255, 255, 0.02);
+    }
+    .admin-btn-sm {
+      padding: 4px 8px;
+      font-size: 11px;
+      border-radius: 4px;
+      border: 1px solid transparent;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .admin-btn-delete {
+      background: rgba(239, 68, 68, 0.15);
+      border-color: rgba(239, 68, 68, 0.3);
+      color: var(--accent-red);
+    }
+    .admin-btn-delete:hover {
+      background: var(--accent-red);
+      color: white;
+    }
+    .admin-btn-edit {
+      background: rgba(251, 191, 36, 0.15);
+      border-color: rgba(251, 191, 36, 0.3);
+      color: var(--accent-yellow);
+      margin-right: 5px;
+    }
+    .admin-btn-edit:hover {
+      background: var(--accent-yellow);
+      color: var(--text-dark);
+    }
+    /* Edit Movie Modal */
+    .admin-modal {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      z-index: 10001;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s;
+    }
+    .admin-modal.open {
+      opacity: 1;
+      pointer-events: auto;
+    }
+    .admin-modal__overlay {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      background: rgba(10, 15, 30, 0.85);
+      backdrop-filter: blur(8px);
+    }
+    .admin-modal__content {
+      position: relative;
+      background: rgba(30, 41, 59, 0.95);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: var(--radius-lg);
+      padding: var(--space-6);
+      width: 90%;
+      max-width: 600px;
+      max-height: 85vh;
+      overflow-y: auto;
+      box-shadow: 0 24px 64px rgba(0,0,0,0.5);
+      backdrop-filter: blur(20px);
+      z-index: 10;
+    }
+    .form-grid-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: var(--space-4);
+    }
+    @media (max-width: 600px) {
+      .form-grid-2 { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- ========== NAV ========== -->
+  <nav class="nav">
+    <div class="container nav__inner">
+      <a class="nav__logo" href="index.html">
+        <div class="nav__logo-icon">🔔</div>
+        <span>Doraemon<strong>Wiki</strong></span>
+      </a>
+      <ul class="nav__links">
+        <li class="nav__link"><a href="index.html">Trang Chủ</a></li>
+        <li class="nav__link"><a href="movies.html">🎬 Phim Dài</a></li>
+        <li class="nav__link"><a href="about.html">📝 Giới Thiệu</a></li>
+      </ul>
+      <div class="nav__actions">
+        <div class="nav__search-wrapper">
+          <form class="nav__search" id="navSearchForm">
+            <input type="text" id="navSearchInput" placeholder="Tìm phim..." autocomplete="off" />
+            <button type="submit" class="nav__search-btn" aria-label="Tìm kiếm">🔍</button>
+          </form>
+          <div class="nav__search-dropdown" id="navSearchDropdown"></div>
+        </div>
+        <div class="nav__auth-wrapper">
+          <button class="nav__auth-btn" id="navAuthBtn" aria-haspopup="true" aria-expanded="false"></button>
+          <div class="nav__auth-panel" id="navAuthPanel" role="menu"></div>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ========== ADMIN CONTENT ========== -->
+  <main class="section">
+    <div class="container">
+      <h1 style="margin-bottom: var(--space-2);">BẢNG QUẢN TRỊ</h1>
+      <p style="color: var(--text-muted); margin-bottom: var(--space-6);">Chào mừng Quản trị viên. Quản lý lượt xem toàn trang, sửa nội dung phim dài và kiểm duyệt bình luận.</p>
+
+      <!-- Stats Grid -->
+      <div class="admin-stats-grid">
+        <div class="admin-stat-card">
+          <div class="admin-stat-card__num" id="statViews">0</div>
+          <div class="admin-stat-card__label">Tổng Lượt Truy Cập</div>
+        </div>
+        <div class="admin-stat-card">
+          <div class="admin-stat-card__num" id="statComments">0</div>
+          <div class="admin-stat-card__label">Tổng Bình Luận</div>
+        </div>
+        <div class="admin-stat-card">
+          <div class="admin-stat-card__num" id="statMovies">0</div>
+          <div class="admin-stat-card__label">Tổng Số Phim Dài</div>
+        </div>
+      </div>
+
+      <!-- Tab Navigation -->
+      <div class="admin-tabs">
+        <button class="admin-tab-btn active" id="tabCommentsBtn">💬 Quản lý Bình luận</button>
+        <button class="admin-tab-btn" id="tabMoviesBtn">🎬 Quản lý Phim dài</button>
+      </div>
+
+      <!-- Tab: Comments -->
+      <div class="admin-tab-content" id="tabCommentsContent">
+        <div class="admin-table-container">
+          <table class="admin-table">
+            <thead>
+              <tr>
+                <th>Phim</th>
+                <th>Người gửi</th>
+                <th>Email</th>
+                <th>Đánh giá</th>
+                <th>Nội dung</th>
+                <th>Thời gian</th>
+                <th>Hành động</th>
+              </tr>
+            </thead>
+            <tbody id="adminCommentsBody">
+              <!-- Render by JS -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Tab: Movies -->
+      <div class="admin-tab-content" id="tabMoviesContent" style="display: none;">
+        <div style="display: flex; justify-content: flex-end; margin-bottom: var(--space-4);">
+          <button class="btn btn--primary" id="adminAddMovieBtn" style="padding: 8px 20px; font-size: 13px; border-radius: 20px;">
+            ➕ Thêm Phim Mới
+          </button>
+        </div>
+        <div class="admin-table-container">
+          <table class="admin-table">
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>Tên tiếng Việt</th>
+                <th>Tên tiếng Nhật</th>
+                <th>Năm chiếu</th>
+                <th>Đạo diễn</th>
+                <th>Hành động</th>
+              </tr>
+            </thead>
+            <tbody id="adminMoviesBody">
+              <!-- Render by JS -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+  <!-- ========== MOVIE EDIT MODAL ========== -->
+  <div class="admin-modal" id="editMovieModal">
+    <div class="admin-modal__overlay" id="editModalOverlay"></div>
+    <div class="admin-modal__content">
+      <h2 style="margin-bottom: var(--space-4); color: white;">Chỉnh Sửa Thông Tin Phim</h2>
+      <form id="editMovieForm" style="display: flex; flex-direction: column; gap: var(--space-4);">
+        <input type="hidden" id="editMovieId" />
+        
+        <div class="form-grid-2">
+          <div style="display: flex; flex-direction: column; gap: var(--space-1);">
+            <label for="editTitleVi" style="font-size: 11px; color: var(--text-muted);">Tiêu đề tiếng Việt</label>
+            <input type="text" id="editTitleVi" class="trailer-url-input" required />
+          </div>
+          <div style="display: flex; flex-direction: column; gap: var(--space-1);">
+            <label for="editTitleJp" style="font-size: 11px; color: var(--text-muted);">Tiêu đề tiếng Nhật</label>
+            <input type="text" id="editTitleJp" class="trailer-url-input" />
+          </div>
+        </div>
+
+        <div class="form-grid-2">
+          <div style="display: flex; flex-direction: column; gap: var(--space-1);">
+            <label for="editReleaseYear" style="font-size: 11px; color: var(--text-muted);">Năm phát hành</label>
+            <input type="number" id="editReleaseYear" class="trailer-url-input" required />
+          </div>
+          <div style="display: flex; flex-direction: column; gap: var(--space-1);">
+            <label for="editReleaseDate" style="font-size: 11px; color: var(--text-muted);">Ngày chiếu cụ thể</label>
+            <input type="text" id="editReleaseDate" class="trailer-url-input" placeholder="YYYY-MM-DD" />
+          </div>
+        </div>
+
+        <div class="form-grid-2">
+          <div style="display: flex; flex-direction: column; gap: var(--space-1);">
+            <label for="editDirector" style="font-size: 11px; color: var(--text-muted);">Đạo diễn</label>
+            <input type="text" id="editDirector" class="trailer-url-input" />
+          </div>
+          <div style="display: flex; flex-direction: column; gap: var(--space-1);">
+            <label for="editBoxOffice" style="font-size: 11px; color: var(--text-muted);">Doanh thu</label>
+            <input type="text" id="editBoxOffice" class="trailer-url-input" />
+          </div>
+        </div>
+
+        <div style="display: flex; flex-direction: column; gap: var(--space-1);">
+          <label for="editThemeSong" style="font-size: 11px; color: var(--text-muted);">Nhạc chủ đề</label>
+          <input type="text" id="editThemeSong" class="trailer-url-input" />
+        </div>
+
+        <div style="display: flex; flex-direction: column; gap: var(--space-1);">
+          <label for="editPlot" style="font-size: 11px; color: var(--text-muted);">Tóm tắt nội dung</label>
+          <textarea id="editPlot" class="trailer-url-input" rows="4" style="font-family: inherit; resize: vertical;"></textarea>
+        </div>
+
+        <div style="display: flex; align-items: center; gap: 10px; margin: var(--space-2) 0;">
+          <input type="checkbox" id="editIsFeatured" style="width: 16px; height: 16px;" />
+          <label for="editIsFeatured" style="font-size: 13px; font-weight: 500; cursor: pointer;">Phim nổi bật (hiển thị trang chủ)</label>
+        </div>
+
+        <div style="display: flex; gap: var(--space-2); justify-content: flex-end; margin-top: var(--space-2);">
+          <button type="button" class="btn btn--secondary" id="editMovieCancel" style="padding: 10px 20px;">Hủy</button>
+          <button type="submit" class="btn btn--primary" id="editMovieSubmit" style="padding: 10px 20px;">Lưu Thay Đổi</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- ========== FOOTER ========== -->
+  <footer class="footer">
+    <div class="container footer__inner">
+      <div class="footer__brand">
+        <span class="nav__logo-icon">🔔</span>
+        <span class="footer__brand-name">Doraemon<strong>Wiki</strong></span>
+      </div>
+      <div class="footer__links">
+        <a href="index.html">Trang Chủ</a>
+        <a href="movies.html">Phim Dài</a>
+        <a href="about.html">Giới Thiệu</a>
+      </div>
+      <div class="footer__copy">Fan-made project · Không có bản quyền thương mại</div>
+    </div>
+  </footer>
+
+  <script src="assets/js/config.js"></script>
+  <script src="assets/js/utils.js"></script>
+  <script src="assets/js/api.js"></script>
+  <script src="assets/js/favorites.js"></script>
+  <script src="assets/js/error-banner.js"></script>
+  <script src="assets/js/auth.js"></script>
+  <script src="assets/js/search.js"></script>
+  <script src="assets/js/pages/admin.js"></script>
+  <script src="assets/js/main.js"></script>
+</body>
+
+</html>

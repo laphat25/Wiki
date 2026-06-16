@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Doraemon Movies Wiki — Bách Khoa Phim Dài</title>
+  <meta name="description" content="Danh sách chi tiết các bộ phim điện ảnh dài trong thế giới Doraemon." />
+  <link rel="stylesheet" href="assets/css/global.css" />
+  <link rel="stylesheet" href="assets/css/components.css" />
+  <link rel="stylesheet" href="assets/css/pages.css" />
+</head>
+
+<body>
+
+  <!-- ========== NAV ========== -->
+  <nav class="nav">
+    <div class="container nav__inner">
+      <a class="nav__logo" href="index.html">
+        <div class="nav__logo-icon">🔔</div>
+        <span>Doraemon<strong>Wiki</strong></span>
+      </a>
+      <ul class="nav__links">
+        <li class="nav__link"><a href="index.html" class="active">Trang Chủ</a></li>
+        <li class="nav__link"><a href="movies.html">🎬 Phim Dài</a></li>
+        <li class="nav__link"><a href="about.html">📝 Giới Thiệu</a></li>
+      </ul>
+      <div class="nav__actions">
+        <!-- Search -->
+        <div class="nav__search-wrapper">
+          <form class="nav__search" id="navSearchForm">
+            <input type="text" id="navSearchInput" placeholder="Tìm phim..." autocomplete="off" />
+            <button type="submit" class="nav__search-btn" aria-label="Tìm kiếm">🔍</button>
+          </form>
+          <div class="nav__search-dropdown" id="navSearchDropdown"></div>
+        </div>
+        <!-- Auth dropdown -->
+        <div class="nav__auth-wrapper">
+          <button class="nav__auth-btn" id="navAuthBtn" aria-haspopup="true" aria-expanded="false">
+            <!-- filled by JS -->
+          </button>
+          <div class="nav__auth-panel" id="navAuthPanel" role="menu">
+            <!-- filled by JS -->
+          </div>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ========== HERO ========== -->
+  <section class="hero">
+    <div class="container hero__inner">
+      <div class="hero__content">
+        <div class="hero__eyebrow">Bách Khoa Điện Ảnh</div>
+        <h1 class="hero__title">
+          MOVIES<br>
+          <span class="text-gradient">WIKI</span>
+        </h1>
+        <p class="hero__subtitle">
+          Khám phá tất cả các bộ phim điện ảnh dài của Doraemon từ năm 1980 đến nay. Những chuyến phiêu lưu kỳ thú đang
+          chờ đón bạn!
+        </p>
+        <div class="hero__cta">
+          <a class="btn btn--primary" href="movies.html">🎬 Xem Tất Cả Phim</a>
+        </div>
+        <div class="hero__stats">
+          <div class="stat">
+            <div class="stat__num" id="moviesCount">43</div>
+            <div class="stat__label">Phim Dài</div>
+          </div>
+          <div class="stat">
+            <div class="stat__num">1980</div>
+            <div class="stat__label">Năm Đầu Tiên</div>
+          </div>
+          <div class="stat">
+            <div class="stat__num">44+</div>
+            <div class="stat__label">Năm Chiếu</div>
+          </div>
+        </div>
+      </div>
+      <div class="hero__illustration">
+        <!-- Doraemon SVG inline -->
+        <svg width="260" height="250" viewBox="0 0 260 250" xmlns="http://www.w3.org/2000/svg" aria-label="Doraemon">
+          <ellipse cx="130" cy="162" rx="74" ry="56" fill="#1565C0" stroke="#0D1B2A" stroke-width="4" />
+          <ellipse cx="130" cy="172" rx="52" ry="40" fill="white" stroke="#0D1B2A" stroke-width="3" />
+          <circle cx="130" cy="94" r="68" fill="#42A5F5" stroke="#0D1B2A" stroke-width="4" />
+          <ellipse cx="130" cy="102" rx="47" ry="39" fill="white" stroke="#0D1B2A" stroke-width="3" />
+          <circle cx="114" cy="82" r="13" fill="white" stroke="#0D1B2A" stroke-width="3" />
+          <circle cx="146" cy="82" r="13" fill="white" stroke="#0D1B2A" stroke-width="3" />
+          <circle cx="118" cy="84" r="5.5" fill="#0D1B2A" />
+          <circle cx="150" cy="84" r="5.5" fill="#0D1B2A" />
+          <circle cx="120" cy="82" r="2" fill="white" />
+          <circle cx="152" cy="82" r="2" fill="white" />
+          <circle cx="130" cy="99" r="7" fill="#D32F2F" stroke="#0D1B2A" stroke-width="2" />
+          <line x1="130" y1="106" x2="130" y2="116" stroke="#0D1B2A" stroke-width="2.5" />
+          <path d="M107 116 Q130 134 153 116" fill="none" stroke="#0D1B2A" stroke-width="3" stroke-linecap="round" />
+          <line x1="56" y1="100" x2="103" y2="105" stroke="#0D1B2A" stroke-width="2.5" />
+          <line x1="56" y1="110" x2="103" y2="110" stroke="#0D1B2A" stroke-width="2.5" />
+          <line x1="56" y1="120" x2="103" y2="115" stroke="#0D1B2A" stroke-width="2.5" />
+          <line x1="204" y1="100" x2="157" y2="105" stroke="#0D1B2A" stroke-width="2.5" />
+          <line x1="204" y1="110" x2="157" y2="110" stroke="#0D1B2A" stroke-width="2.5" />
+          <line x1="204" y1="120" x2="157" y2="115" stroke="#0D1B2A" stroke-width="2.5" />
+          <ellipse cx="130" cy="167" rx="27" ry="18" fill="white" stroke="#0D1B2A" stroke-width="3" />
+          <circle cx="130" cy="145" r="9" fill="#F9A825" stroke="#0D1B2A" stroke-width="3" />
+          <circle cx="130" cy="148" r="3" fill="#0D1B2A" />
+          <ellipse cx="63" cy="172" rx="16" ry="11" fill="#42A5F5" stroke="#0D1B2A" stroke-width="3"
+            transform="rotate(-20 63 172)" />
+          <ellipse cx="197" cy="172" rx="16" ry="11" fill="#42A5F5" stroke="#0D1B2A" stroke-width="3"
+            transform="rotate(20 197 172)" />
+          <circle cx="50" cy="184" r="13" fill="white" stroke="#0D1B2A" stroke-width="3" />
+          <circle cx="210" cy="184" r="13" fill="white" stroke="#0D1B2A" stroke-width="3" />
+          <ellipse cx="110" cy="220" rx="16" ry="11" fill="#1565C0" stroke="#0D1B2A" stroke-width="3" />
+          <ellipse cx="150" cy="220" rx="16" ry="11" fill="#1565C0" stroke="#0D1B2A" stroke-width="3" />
+          <ellipse cx="103" cy="233" rx="22" ry="9" fill="white" stroke="#0D1B2A" stroke-width="3" />
+          <ellipse cx="157" cy="233" rx="22" ry="9" fill="white" stroke="#0D1B2A" stroke-width="3" />
+          <path d="M200 156 Q222 132 212 112" fill="none" stroke="#D32F2F" stroke-width="5" stroke-linecap="round" />
+        </svg>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== FEATURED MOVIES ========== -->
+  <section class="section">
+    <div class="container">
+      <div class="section-header">
+        <h2 class="section-title">PHIM ĐIỆN ẢNH NỔI BẬT</h2>
+        <a class="section-link" href="movies.html">Xem tất cả →</a>
+      </div>
+      <div class="gadget-grid" id="featuredGrid">
+        <!-- Render from JS -->
+      </div>
+    </div>
+  </section>
+
+  <div class="container">
+    <div class="divider-dots"></div>
+  </div>
+
+  <!-- ========== FOOTER ========== -->
+  <footer class="footer">
+    <div class="container footer__inner">
+      <div class="footer__brand">
+        <span class="nav__logo-icon">🔔</span>
+        <span class="footer__brand-name">Doraemon<strong>Wiki</strong></span>
+      </div>
+      <!-- <div class="footer__links">
+        <a href="movies.html">Phim Dài</a>
+      </div> -->
+      <div class="footer__copy">Fan-made project · Không có bản quyền thương mại</div>
+    </div>
+  </footer>
+
+  <!-- ========== AD POPUP MODAL ========== -->
+  <div class="ad-popup" id="adPopup" aria-hidden="true" role="dialog">
+    <div class="ad-popup__overlay" id="adPopupOverlay"></div>
+    <div class="ad-popup__content">
+      <button class="ad-popup__close" id="adPopupClose" aria-label="Đóng quảng cáo">&times;</button>
+      <div class="ad-popup__badge">🔥 Khuyến mãi đặc biệt</div>
+      <h3 class="ad-popup__title">Mô hình Doraemon cao cấp</h3>
+      <p class="ad-popup__text">Sở hữu ngay mô hình Doraemon bay bằng tre phiên bản giới hạn kỷ niệm phim dài mới. Giảm giá 30% duy nhất hôm nay!</p>
+      <div class="ad-popup__image" style="background-image: url('assets/images/doraemon_toy.png')"></div>
+      <a href="https://shop.doraemon.com" target="_blank" rel="noopener noreferrer" class="btn btn--primary ad-popup__btn">Mua Ngay</a>
+    </div>
+  </div>
+
+  <script src="assets/js/config.js"></script>
+  <script src="assets/js/utils.js"></script>
+  <script src="assets/js/api.js"></script>
+  <script src="assets/js/favorites.js"></script>
+  <script src="assets/js/error-banner.js"></script>
+  <script src="assets/js/auth.js"></script>
+  <script src="assets/js/search.js"></script>
+  <script src="assets/js/components/movie-card.js"></script>
+  <script src="assets/js/pages/home.js"></script>
+  <script src="assets/js/main.js"></script>
+</body>
+
+</html>

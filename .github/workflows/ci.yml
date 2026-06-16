@@ -1,0 +1,40 @@
+name: CI
+
+on:
+  push:
+    branches: [main, master]
+  pull_request:
+    branches: [main, master]
+
+jobs:
+  build-test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: npm
+          cache-dependency-path: backend-node/package-lock.json
+
+      - name: Install dependencies
+        working-directory: backend-node
+        run: npm ci
+
+      - name: Lint
+        working-directory: backend-node
+        run: npm run lint
+
+      - name: Initialize database
+        working-directory: backend-node
+        run: npm run db:init
+
+      - name: Test
+        working-directory: backend-node
+        run: npm test
+
+      - name: Build check
+        working-directory: backend-node
+        run: node --check src/server.js

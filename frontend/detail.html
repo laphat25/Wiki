@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Chi Tiết Phim — Doraemon Wiki</title>
+  <meta name="description" content="Thông tin chi tiết về phim điện ảnh Doraemon.">
+  <link rel="stylesheet" href="assets/css/global.css" />
+  <link rel="stylesheet" href="assets/css/components.css" />
+  <link rel="stylesheet" href="assets/css/pages.css" />
+</head>
+<body>
+
+<nav class="nav">
+  <div class="container nav__inner">
+    <a class="nav__logo" href="index.html">
+      <div class="nav__logo-icon">🔔</div>
+      <span>Doraemon<strong>Wiki</strong></span>
+    </a>
+    <ul class="nav__links">
+      <li class="nav__link"><a href="index.html">Trang Chủ</a></li>
+      <li class="nav__link"><a href="movies.html" class="active">🎬 Phim Dài</a></li>
+      <li class="nav__link"><a href="about.html">📝 Giới Thiệu</a></li>
+    </ul>
+    <div class="nav__actions">
+      <div class="nav__search-wrapper">
+        <form class="nav__search" id="navSearchForm">
+          <input type="text" id="navSearchInput" placeholder="Tìm phim..." autocomplete="off"/>
+          <button type="submit" class="nav__search-btn" aria-label="Tìm kiếm">🔍</button>
+        </form>
+        <div class="nav__search-dropdown" id="navSearchDropdown"></div>
+      </div>
+      <div class="nav__auth-wrapper">
+        <button class="nav__auth-btn" id="navAuthBtn" aria-haspopup="true" aria-expanded="false"></button>
+        <div class="nav__auth-panel" id="navAuthPanel" role="menu"></div>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<main class="detail-page">
+  <div class="container">
+
+    <!-- BREADCRUMB -->
+    <nav class="breadcrumb" aria-label="Breadcrumb">
+      <a href="index.html">Trang chủ</a>
+      <span>›</span>
+      <a href="movies.html">Phim Dài</a>
+      <span>›</span>
+      <span id="bc-name">Đang tải...</span>
+    </nav>
+
+    <div class="wiki-layout">
+      <!-- LEFT: Main Article -->
+      <div class="wiki-main">
+        <div class="wiki-title-row">
+          <div>
+            <h1 id="d-title-vi">Đang tải...</h1>
+            <h2 class="jp-title" id="d-title-jp">...</h2>
+          </div>
+          <div style="display: flex; gap: var(--space-2); align-items: center;">
+            <!-- Edit Wiki button (editor/admin only) -->
+            <button class="fav-btn" id="editWikiBtn" title="Biên tập thông tin phim" style="display:none; color: var(--accent-yellow); border-color: rgba(245, 158, 11, 0.3); background: rgba(245, 158, 11, 0.1); font-size: 1.1rem; line-height: 1;">
+              ✏️
+            </button>
+            <!-- Favorite button -->
+            <button class="fav-btn" id="favBtn" title="Thêm vào yêu thích" aria-label="Thêm vào yêu thích">
+              <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" id="favIcon"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+            </button>
+          </div>
+        </div>
+
+        <!-- Era badge -->
+        <div class="detail-meta-badges" id="detailBadges"></div>
+
+        <div class="wiki-section">
+          <h3>🎬 Nội dung</h3>
+          <div id="d-plot">
+            <p>Đang tải tóm tắt nội dung phim...</p>
+          </div>
+        </div>
+
+        <!-- Trailer Section (hidden until trailer_url exists) -->
+        <div class="wiki-section trailer-section" id="trailer-section" style="display:none">
+          <h3>
+            ▶ Trailer
+            <!-- Edit trailer (editor/admin only) -->
+            <button class="trailer-edit-btn" id="trailerEditBtn" title="Cập nhật trailer" style="display:none">
+              <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+              Sửa
+            </button>
+          </h3>
+          <!-- Trailer edit form (hidden by default) -->
+          <div class="trailer-edit-form" id="trailerEditForm" style="display:none">
+            <input type="text" id="trailerUrlInput" class="trailer-url-input"
+              placeholder="Dán link YouTube: https://youtube.com/watch?v=... hoặc Video ID"/>
+            <div class="trailer-edit-actions">
+              <button class="trailer-save-btn" id="trailerSaveBtn">💾 Lưu</button>
+              <button class="trailer-clear-btn" id="trailerClearBtn">🗑 Xoá trailer</button>
+              <button class="trailer-edit-cancel" id="trailerEditCancel">Huỷ</button>
+            </div>
+          </div>
+          <div class="trailer-wrap" id="trailerWrap">
+            <button class="trailer-play-btn" id="trailerPlayBtn">
+              <div class="trailer-thumbnail" id="trailerThumb"></div>
+              <div class="trailer-play-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" width="52" height="52" viewBox="0 0 24 24" fill="white"><path d="M8 5v14l11-7z"/></svg>
+              </div>
+              <div class="trailer-overlay-text">Xem Trailer trên YouTube</div>
+            </button>
+            <div class="trailer-iframe-wrap" id="trailerIframeWrap" style="display:none">
+              <!-- iframe injected by JS on click -->
+            </div>
+          </div>
+        </div>
+
+        <!-- Prev / Next navigation -->
+        <div class="wiki-nav-row" id="wikiNavRow">
+          <a href="#" class="wiki-nav-btn wiki-nav-btn--prev" id="navPrev">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+            <div>
+              <div class="wiki-nav-label">Phim trước</div>
+              <div class="wiki-nav-title" id="prevTitle">—</div>
+            </div>
+          </a>
+          <a href="#" class="wiki-nav-btn wiki-nav-btn--next" id="navNext">
+            <div>
+              <div class="wiki-nav-label">Phim sau</div>
+              <div class="wiki-nav-title" id="nextTitle">—</div>
+            </div>
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+          </a>
+        </div>
+
+        <div class="wiki-actions">
+          <a class="btn btn--secondary" href="movies.html">← Quay lại danh sách</a>
+        </div>
+
+      </div><!-- end .wiki-main -->
+
+      <!-- RIGHT: Infobox -->
+      <aside class="wiki-infobox">
+        <div class="infobox-title" id="info-title">Đang tải...</div>
+
+        <!-- Infobox image với upload overlay cho editor/admin -->
+        <div class="infobox-image-wrap" id="infoImgWrap">
+          <div class="infobox-image" id="info-img"></div>
+          <!-- Upload overlay (editor/admin only, hidden by default) -->
+          <label class="infobox-upload-overlay" id="infoUploadOverlay" title="Thay ảnh bìa" style="display:none">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg>
+            <span>Thay ảnh</span>
+            <input type="file" id="uploadInput" accept="image/jpeg,image/png,image/webp,image/gif"
+                   style="display:none"/>
+          </label>
+          <!-- Upload feedback bar -->
+          <div class="infobox-upload-feedback" id="uploadFeedback" style="display:none"></div>
+        </div>
+
+        <div class="infobox-data">
+          <div class="data-row">
+            <span class="data-label">Đạo diễn</span>
+            <span class="data-value" id="info-dir">—</span>
+          </div>
+          <div class="data-row">
+            <span class="data-label">Năm</span>
+            <span class="data-value" id="info-year">—</span>
+          </div>
+          <div class="data-row">
+            <span class="data-label">Ngày chiếu (Nhật)</span>
+            <span class="data-value" id="info-date">—</span>
+          </div>
+          <div class="data-row">
+            <span class="data-label">Doanh thu</span>
+            <span class="data-value" id="info-box">—</span>
+          </div>
+          <div class="data-row">
+            <span class="data-label">Ca khúc chủ đề</span>
+            <span class="data-value" id="info-song">—</span>
+          </div>
+        </div>
+
+        <!-- Share row -->
+        <div class="infobox-share">
+          <button class="share-btn" id="shareCopy" title="Sao chép link">
+            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>
+            Sao chép link
+          </button>
+        </div>
+
+        <!-- External Links (shown by JS if URL exists) -->
+        <div class="infobox-external" id="externalLinks" style="display:none">
+          <div class="infobox-external-title">
+            <span class="infobox-external-heading">🔗 Liên kết ngoài</span>
+            <button class="ext-edit-btn" id="extEditBtn" title="Chỉnh sửa liên kết" style="display:none" aria-controls="extEditForm" aria-expanded="false">
+              <svg xmlns="http://www.w3.org/2000/svg" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+              <span class="ext-edit-btn-text">Sửa</span>
+            </button>
+          </div>
+
+          <!-- Edit form (editor/admin only) -->
+          <div class="ext-edit-form" id="extEditForm" style="display:none">
+            <p class="ext-edit-note">Để trống ô nào thì nút liên kết tương ứng sẽ bị ẩn.</p>
+            <div class="ext-edit-group">
+              <label class="ext-edit-label" for="extWikiInput">Wikipedia URL</label>
+              <input type="url" id="extWikiInput" class="ext-edit-input"
+                placeholder="https://vi.wikipedia.org/wiki/..." autocomplete="url" spellcheck="false" inputmode="url"/>
+            </div>
+            <div class="ext-edit-group">
+              <label class="ext-edit-label" for="extStreamInput">Link xem phim</label>
+              <input type="url" id="extStreamInput" class="ext-edit-input"
+                placeholder="https://..." autocomplete="url" spellcheck="false" inputmode="url"/>
+            </div>
+            <div class="ext-edit-actions">
+              <button type="button" class="ext-save-btn" id="extSaveBtn">Lưu thay đổi</button>
+              <button type="button" class="ext-cancel-btn" id="extCancelBtn">Hủy</button>
+            </div>
+          </div>
+
+          <div class="infobox-external-btns">
+            <a id="wikiBtn" href="#" target="_blank" rel="noopener noreferrer"
+               class="ext-btn ext-btn--wiki" style="display:none">
+              <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+              Wikipedia
+              <svg xmlns="http://www.w3.org/2000/svg" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+            </a>
+            <a id="streamBtn" href="#" target="_blank" rel="noopener noreferrer"
+               class="ext-btn ext-btn--stream" style="display:none">
+              <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+              Xem phim
+              <svg xmlns="http://www.w3.org/2000/svg" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+            </a>
+          </div>
+        </div>
+      </aside>
+
+    </div><!-- .wiki-layout -->
+
+    <!-- ============================================
+         COMMENTS SECTION
+         ============================================ -->
+    <section class="comments-section" id="commentsSection">
+      <div class="comments-header">
+        <h3 class="comments-title">
+          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+          Bình luận
+          <span class="comments-count" id="commentsCount"></span>
+        </h3>
+      </div>
+
+      <!-- Form gửi bình luận (JS quyết định hiện gì) -->
+      <div class="comment-form-wrap" id="commentFormWrap">
+        <!-- Filled by JS: either form or login prompt -->
+      </div>
+
+      <!-- Danh sách bình luận -->
+      <div class="comments-list" id="commentsList">
+        <!-- Skeleton loading -->
+        <div class="comment-skeleton" aria-hidden="true">
+          <div class="sk-avatar"></div>
+          <div class="sk-lines">
+            <div class="sk-line sk-line--50"></div>
+            <div class="sk-line sk-line--80"></div>
+          </div>
+        </div>
+        <div class="comment-skeleton" aria-hidden="true">
+          <div class="sk-avatar"></div>
+          <div class="sk-lines">
+            <div class="sk-line sk-line--40"></div>
+            <div class="sk-line sk-line--70"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Empty state -->
+      <div class="comments-empty" id="commentsEmpty" style="display:none">
+        <div style="font-size:2rem;margin-bottom:8px">💬</div>
+        <div>Chưa có bình luận nào. Hãy là người đầu tiên!</div>
+      </div>
+
+    </section>
+
+  </div>
+</main>
+
+<footer class="footer">
+  <div class="container footer__inner">
+    <div class="footer__brand">
+      <span class="nav__logo-icon">🔔</span>
+      <span class="footer__brand-name">Doraemon<strong>Wiki</strong></span>
+    </div>
+    <div class="footer__links">
+      <a href="index.html">Trang Chủ</a>
+      <a href="movies.html">Phim Dài</a>
+    </div>
+    <div class="footer__copy">Fan-made project · Không có bản quyền thương mại</div>
+  </div>
+</footer>
+
+  <!-- ========== EDIT MOVIE MODAL (editor/admin only) ========== -->
+  <div class="modal-overlay" id="editWikiModal" aria-hidden="true" role="dialog">
+    <div class="modal" style="width: 600px; max-width: 100%;">
+      <div class="modal__header">
+        <div class="modal__emoji">✏️</div>
+        <div>
+          <h3 class="modal__title">Biên tập nội dung Wiki</h3>
+          <div class="modal__subtitle">Cập nhật thông tin chi tiết phim dài</div>
+        </div>
+      </div>
+      <form id="editWikiForm" style="display: flex; flex-direction: column; gap: var(--space-4); padding: var(--space-6);">
+        <div class="form-row" style="display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-4);">
+          <div style="display: flex; flex-direction: column; gap: var(--space-1);">
+            <label for="wikiTitleVi" style="font-size: 11px; color: var(--text-muted); font-weight: 600;">Tiêu đề tiếng Việt</label>
+            <input type="text" id="wikiTitleVi" class="trailer-url-input" required />
+          </div>
+          <div style="display: flex; flex-direction: column; gap: var(--space-1);">
+            <label for="wikiTitleJp" style="font-size: 11px; color: var(--text-muted); font-weight: 600;">Tiêu đề tiếng Nhật</label>
+            <input type="text" id="wikiTitleJp" class="trailer-url-input" />
+          </div>
+        </div>
+
+        <div class="form-row" style="display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-4);">
+          <div style="display: flex; flex-direction: column; gap: var(--space-1);">
+            <label for="wikiReleaseYear" style="font-size: 11px; color: var(--text-muted); font-weight: 600;">Năm phát hành</label>
+            <input type="number" id="wikiReleaseYear" class="trailer-url-input" required />
+          </div>
+          <div style="display: flex; flex-direction: column; gap: var(--space-1);">
+            <label for="wikiReleaseDate" style="font-size: 11px; color: var(--text-muted); font-weight: 600;">Ngày chiếu (Nhật)</label>
+            <input type="text" id="wikiReleaseDate" class="trailer-url-input" placeholder="DD/MM/YYYY" />
+          </div>
+        </div>
+
+        <div class="form-row" style="display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-4);">
+          <div style="display: flex; flex-direction: column; gap: var(--space-1);">
+            <label for="wikiDirector" style="font-size: 11px; color: var(--text-muted); font-weight: 600;">Đạo diễn</label>
+            <input type="text" id="wikiDirector" class="trailer-url-input" />
+          </div>
+          <div style="display: flex; flex-direction: column; gap: var(--space-1);">
+            <label for="wikiBoxOffice" style="font-size: 11px; color: var(--text-muted); font-weight: 600;">Doanh thu phòng vé</label>
+            <input type="text" id="wikiBoxOffice" class="trailer-url-input" />
+          </div>
+        </div>
+
+        <div style="display: flex; flex-direction: column; gap: var(--space-1);">
+          <label for="wikiThemeSong" style="font-size: 11px; color: var(--text-muted); font-weight: 600;">Ca khúc chủ đề</label>
+          <input type="text" id="wikiThemeSong" class="trailer-url-input" />
+        </div>
+
+        <div style="display: flex; flex-direction: column; gap: var(--space-1);">
+          <label for="wikiPlot" style="font-size: 11px; color: var(--text-muted); font-weight: 600;">Tóm tắt cốt truyện</label>
+          <textarea id="wikiPlot" class="trailer-url-input" rows="4" style="font-family: inherit; resize: vertical;"></textarea>
+        </div>
+
+        <div style="display: flex; align-items: center; gap: 10px; margin: var(--space-2) 0;">
+          <input type="checkbox" id="wikiIsFeatured" style="width: 16px; height: 16px; cursor: pointer;" />
+          <label for="wikiIsFeatured" style="font-size: 13px; font-weight: 500; cursor: pointer; color: white;">Phim nổi bật (hiển thị trang chủ)</label>
+        </div>
+
+        <div class="modal__footer" style="padding: 0; border: none; justify-content: flex-end; gap: var(--space-2);">
+          <button type="button" class="btn btn--secondary" id="editWikiCancel" style="padding: 10px 20px;">Hủy</button>
+          <button type="submit" class="btn btn--primary" id="editWikiSubmit" style="padding: 10px 20px;">Lưu Thay Đổi</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+<script src="assets/js/config.js"></script>
+<script src="assets/js/utils.js"></script>
+<script src="assets/js/api.js"></script>
+<script src="assets/js/favorites.js"></script>
+<script src="assets/js/error-banner.js"></script>
+<script src="assets/js/auth.js"></script>
+<script src="assets/js/search.js"></script>
+<script src="assets/js/components/movie-card.js"></script>
+<script src="assets/js/comments.js"></script>
+<script src="assets/js/editor.js"></script>
+<script src="assets/js/pages/detail.js"></script>
+<script src="assets/js/main.js"></script>
+</body>
+</html>

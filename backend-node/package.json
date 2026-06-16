@@ -1,0 +1,37 @@
+{
+  "name": "doraemon-wiki-backend",
+  "version": "2.0.0",
+  "description": "Doraemon Movies Wiki — Node.js + SQLite backend",
+  "main": "src/server.js",
+  "scripts": {
+    "start": "node src/server.js",
+    "dev": "nodemon src/server.js",
+    "db:init": "node src/db/init.js",
+    "db:seed": "node src/db/seed.js",
+    "db:migrate": "node src/db/migrate.js",
+    "db:bootstrap": "node src/scripts/bootstrap-admin.js",
+    "test": "node --test tests/",
+    "lint": "node --check src/server.js && node --check src/config/index.js && node --check src/db/connection.js"
+  },
+  "dependencies": {
+    "bcrypt": "^5.1.1",
+    "better-sqlite3": "^11.7.0",
+    "connect-sqlite3": "^0.9.15",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.5",
+    "express": "^4.19.2",
+    "express-rate-limit": "^7.5.0",
+    "express-session": "^1.18.0",
+    "file-type": "^16.5.4",
+    "helmet": "^8.0.0",
+    "multer": "^2.1.1",
+    "pino": "^9.6.0",
+    "pino-http": "^10.4.0",
+    "uuid": "^11.0.5"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.4",
+    "supertest": "^7.0.0"
+  },
+  "packageManager": "yarn@4.15.0+sha512.07ec708ac11e2eaa4ea2b04cfbb272812f7e74a753f1595eaef4486c663a98306a30cca3e6fc40f7a0b168dcfb3a2490b6a5e0501e20fb69cc36f563dd161c53"
+}
