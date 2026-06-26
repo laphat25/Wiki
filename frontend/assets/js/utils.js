@@ -23,7 +23,15 @@ function showToast(msg, type = 'default') {
     toast.className = 'toast';
     document.body.appendChild(toast);
   }
-  toast.textContent = msg;
+  let iconHtml = '';
+  if (typeof ICONS !== 'undefined') {
+    if (type === 'success') {
+      iconHtml = '<span class="toast__icon">' + ICONS.check + '</span>';
+    } else if (type === 'error') {
+      iconHtml = '<span class="toast__icon">' + ICONS.x + '</span>';
+    }
+  }
+  toast.innerHTML = iconHtml + '<span>' + msg + '</span>';
   toast.className = 'toast show' + (type === 'success' ? ' toast--success' : type === 'error' ? ' toast--error' : '');
   clearTimeout(toastTimer);
   toastTimer = setTimeout(() => toast.classList.remove('show'), 2800);

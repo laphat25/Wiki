@@ -10,7 +10,7 @@ async function initAdminPage() {
   const user = authRes?.user ?? null;
 
   if (!user || user.role !== 'admin') {
-    showToast('❌ Bạn không có quyền truy cập trang quản trị!', 'error');
+    showToast('Bạn không có quyền truy cập trang quản trị!', 'error');
     setTimeout(() => {
       location.href = 'index.html';
     }, 1500);
@@ -47,13 +47,13 @@ async function loadAdminComments() {
   const tbody = document.getElementById('adminCommentsBody');
   if (!tbody) return;
 
-  tbody.innerHTML = '<tr><td colspan="7" style="text-align:center;">⏳ Đang tải danh sách bình luận...</td></tr>';
+  tbody.innerHTML = '<tr><td colspan="7" style="text-align:center;color:var(--text-muted);">Đang tải danh sách bình luận...</td></tr>';
 
   const res = await apiGet('admin/comments');
   const comments = res?.comments || [];
 
   if (!comments.length) {
-    tbody.innerHTML = '<tr><td colspan="7" style="text-align:center;color:var(--text-muted);">💬 Chưa có bình luận nào trên hệ thống.</td></tr>';
+    tbody.innerHTML = '<tr><td colspan="7" style="text-align:center;color:var(--text-muted);">' + (typeof ICONS !== 'undefined' ? ICONS.messageCircle + ' ' : '') + 'Chưa có bình luận nào trên hệ thống.</td></tr>';
     return;
   }
 
@@ -95,7 +95,7 @@ async function loadAdminComments() {
       } else {
         btn.disabled = false;
         btn.textContent = 'Xóa';
-        showToast('❌ Không thể xóa: ' + (delRes?.error || 'Lỗi'), 'error');
+        showToast(delRes?.error || 'Lỗi', 'error');
       }
     });
   });
@@ -105,12 +105,12 @@ async function loadAdminMovies() {
   const tbody = document.getElementById('adminMoviesBody');
   if (!tbody) return;
 
-  tbody.innerHTML = '<tr><td colspan="6" style="text-align:center;">⏳ Đang tải danh sách phim dài...</td></tr>';
+  tbody.innerHTML = '<tr><td colspan="6" style="text-align:center;color:var(--text-muted);">Đang tải danh sách phim dài...</td></tr>';
 
   const movies = unwrapList(await apiGet('movies'));
 
   if (!movies.length) {
-    tbody.innerHTML = '<tr><td colspan="6" style="text-align:center;color:var(--text-muted);">🎬 Không có dữ liệu phim.</td></tr>';
+    tbody.innerHTML = '<tr><td colspan="6" style="text-align:center;color:var(--text-muted);">' + (typeof ICONS !== 'undefined' ? ICONS.film + ' ' : '') + 'Không có dữ liệu phim.</td></tr>';
     return;
   }
 
@@ -150,7 +150,7 @@ async function loadAdminMovies() {
 
       const delRes = await apiDelete(`movies/${id}`);
       if (delRes?.success) {
-        showToast('✅ Đã xóa phim thành công!');
+        showToast('Đã xóa phim thành công!', 'success');
         document.getElementById(`admin-movie-row-${id}`)?.remove();
         // Update stats counter
         const curMovies = parseInt(document.getElementById('statMovies').textContent, 10) || 0;
@@ -158,7 +158,7 @@ async function loadAdminMovies() {
       } else {
         btn.disabled = false;
         btn.textContent = 'Xóa';
-        showToast('❌ Không thể xóa phim: ' + (delRes?.error || 'Lỗi'), 'error');
+        showToast(delRes?.error || 'Lỗi', 'error');
       }
     });
   });
@@ -201,7 +201,7 @@ async function openMovieEditor(movieId) {
   // Load movie detail
   const res = await apiGet(`movies/${movieId}`);
   if (!res || res.error) {
-    showToast('❌ Không thể tải thông tin chi tiết phim!', 'error');
+    showToast('Không thể tải thông tin chi tiết phim!', 'error');
     return;
   }
 
@@ -263,7 +263,7 @@ function setupMovieEditorModal() {
     e.preventDefault();
 
     submitBtn.disabled = true;
-    submitBtn.textContent = '⏳ Đang lưu...';
+    submitBtn.textContent = 'Đang lưu...';
 
     const payload = {
       title_vi: document.getElementById('editTitleVi').value.trim(),
@@ -288,13 +288,13 @@ function setupMovieEditorModal() {
     submitBtn.textContent = 'Lưu Thay Đổi';
 
     if (response?.success) {
-      showToast(currentEditingMovieId ? '✅ Đã cập nhật phim dài thành công!' : '✅ Đã thêm phim mới thành công!', 'success');
+      showToast(currentEditingMovieId ? 'Đã cập nhật phim dài thành công!' : 'Đã thêm phim mới thành công!', 'success');
       closeModal();
       // Reload lists
       await loadAdminMovies();
       await loadAdminStats();
     } else {
-      showToast('❌ Lỗi: ' + (response?.error || 'Không thể lưu'), 'error');
+      showToast('Lỗi: ' + (response?.error || 'Không thể lưu'), 'error');
     }
   });
 }

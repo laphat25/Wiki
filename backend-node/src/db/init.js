@@ -21,7 +21,7 @@ function init() {
   runMigrations();
   const count = runSeed();
 
-  console.log('\n✅ Database initialized successfully!');
+  console.log('\n Database initialized successfully!');
   console.log(`   Path:    ${config.db.path}`);
   console.log(`   Movies:  ${count}`);
   console.log(`   Run:     npm run db:bootstrap  (create admin account)\n`);
@@ -31,7 +31,7 @@ if (require.main === module) {
   try {
     init();
   } catch (err) {
-    console.error('❌ Database init failed:', err.message);
+    console.error('Database init failed:', err.message);
     process.exit(1);
   } finally {
     close();

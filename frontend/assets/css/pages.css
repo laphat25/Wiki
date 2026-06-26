@@ -90,7 +90,7 @@
 }
 .stat { text-align: left; }
 .stat__num {
-  font-family: 'Outfit', sans-serif;
+  font-family: 'Inter', sans-serif;
   font-size: 3rem;
   font-weight: 700;
   color: white;
@@ -157,7 +157,7 @@
   color: var(--accent-yellow);
   padding: 1.25rem 1rem;
   text-align: center;
-  font-family: 'Outfit', sans-serif;
+  font-family: 'Inter', sans-serif;
   font-size: 1.2rem;
   font-weight: 800;
   line-height: 1.3;
@@ -166,19 +166,16 @@
 .infobox-image {
   width: 100%;
   aspect-ratio: 2/3;
-  background: rgba(0,0,0,0.4);
+  background-color: rgba(0,0,0,0.4);
   background-size: cover;
   background-position: center;
+  background-repeat: no-repeat;
   position: relative;
 }
-.infobox-image.no-poster::after {
-  content: '🎬';
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  font-size: 5rem;
-  opacity: 0.15;
+.infobox-image.no-poster {
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 .infobox-data {
   padding: 0.5rem 1rem 1.5rem;
@@ -200,7 +197,7 @@
 
 /* Main article */
 .wiki-main h1 {
-  font-family: 'Outfit', sans-serif;
+  font-family: 'Inter', sans-serif;
   font-size: clamp(2rem, 4vw, 3rem);
   font-weight: 900;
   color: white;
@@ -208,7 +205,7 @@
   margin-bottom: 0.5rem;
 }
 .wiki-main h2.jp-title {
-  font-family: 'Roboto', sans-serif;
+  font-family: 'Inter', sans-serif;
   font-size: var(--type-lg);
   color: var(--text-muted);
   font-style: italic;
@@ -223,7 +220,7 @@
   margin-bottom: 2rem;
 }
 .wiki-section h3 {
-  font-family: 'Outfit', sans-serif;
+  font-family: 'Inter', sans-serif;
   font-size: 1.5rem;
   color: var(--accent-yellow);
   margin-bottom: 1.25rem;
@@ -269,7 +266,7 @@
 }
 
 .auth-title {
-  font-family: 'Outfit', sans-serif;
+  font-family: 'Inter', sans-serif;
   font-size: 2.75rem;
   font-weight: 900;
   color: white;
@@ -402,7 +399,7 @@
 }
 .movies-stat { text-align: center; }
 .movies-stat__num {
-  font-family: 'Outfit', sans-serif;
+  font-family: 'Inter', sans-serif;
   font-size: 2rem;
   font-weight: 800;
   color: var(--accent-yellow);
@@ -479,7 +476,7 @@
   font-weight: 700;
 }
 .movie-title-vi {
-  font-family: 'Outfit', sans-serif;
+  font-family: 'Inter', sans-serif;
   font-weight: 700;
   font-size: var(--type-base);
   color: white;
@@ -666,7 +663,7 @@
   font-weight: 700;
 }
 .movie-card__title {
-  font-family: 'Outfit', sans-serif;
+  font-family: 'Inter', sans-serif;
   font-weight: 700;
   font-size: var(--type-sm);
   color: white;
@@ -731,7 +728,7 @@
   margin-bottom: var(--space-4);
 }
 .wiki-title-row h1 {
-  font-family: 'Outfit', sans-serif;
+  font-family: 'Inter', sans-serif;
   font-size: clamp(1.8rem, 4vw, 3rem);
   font-weight: 900;
   color: white;
@@ -822,7 +819,7 @@
   margin-bottom: 2px;
 }
 .wiki-nav-title {
-  font-family: 'Outfit', sans-serif;
+  font-family: 'Inter', sans-serif;
   font-weight: 600;
   font-size: var(--type-sm);
   color: inherit;
@@ -1341,7 +1338,7 @@
 }
 
 .upload-main-text {
-  font-family: 'Outfit', sans-serif;
+  font-family: 'Inter', sans-serif;
   font-size: var(--type-base);
   font-weight: 700;
   color: var(--text-main);
@@ -1504,7 +1501,7 @@
   display: flex;
   align-items: center;
   gap: var(--space-3);
-  font-family: 'Outfit', sans-serif;
+  font-family: 'Inter', sans-serif;
   font-size: 1.2rem;
   font-weight: 800;
   color: white;
@@ -1535,7 +1532,7 @@
   border-radius: 50%;
   background: linear-gradient(135deg, #0EA5E9, #6366F1);
   color: white;
-  font-family: 'Outfit', sans-serif;
+  font-family: 'Inter', sans-serif;
   font-size: 16px;
   font-weight: 800;
   display: flex;
@@ -1558,7 +1555,7 @@
   border: 1px solid rgba(255,255,255,0.1);
   border-radius: var(--radius-md);
   color: white;
-  font-family: 'Outfit', sans-serif;
+  font-family: 'Inter', sans-serif;
   font-size: var(--type-sm);
   padding: var(--space-3) var(--space-4);
   resize: vertical;
@@ -1665,7 +1662,7 @@
   border-radius: 50%;
   background: linear-gradient(135deg, #0EA5E9, #6366F1);
   color: white;
-  font-family: 'Outfit', sans-serif;
+  font-family: 'Inter', sans-serif;
   font-size: 14px;
   font-weight: 800;
   display: flex;

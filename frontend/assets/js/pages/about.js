@@ -34,16 +34,16 @@ async function initAboutPage() {
     }
 
     submitBtn.disabled = true;
-    submitBtn.textContent = '⏳ Đang gửi góp ý...';
+    submitBtn.textContent = 'Đang gửi góp ý...';
 
     const payload = { name, email, subject, message };
     const response = await apiPost('feedbacks', payload);
 
     submitBtn.disabled = false;
-    submitBtn.textContent = '🚀 Gửi Góp Ý';
+    submitBtn.innerHTML = (typeof ICONS !== 'undefined' ? ICONS.send + ' ' : '') + 'Gửi Góp Ý';
 
     if (response?.success) {
-      showToast('✅ Gửi góp ý thành công! Trân trọng cảm ơn bạn.', 'success');
+      showToast('Gửi góp ý thành công! Trân trọng cảm ơn bạn.', 'success');
       form.reset();
       // Keep username prefilled after reset
       if (user) {
@@ -51,7 +51,7 @@ async function initAboutPage() {
         if (emailInput) emailInput.value = user.email || '';
       }
     } else {
-      showToast('❌ Gửi thất bại: ' + (response?.error || 'Lỗi hệ thống'), 'error');
+      showToast('Gửi thất bại: ' + (response?.error || 'Lỗi hệ thống'), 'error');
     }
   });
 }

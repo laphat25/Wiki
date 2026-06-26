@@ -27,7 +27,7 @@ async function createAccounts() {
       passwordHash: hash,
       role: acc.role
     });
-    console.log(`✅ Created user: ${user.username} (role: ${user.role}) - Password: ${acc.password}`);
+    console.log(`Created user: ${user.username} (role: ${user.role}) - Password: ${acc.password}`);
   }
 }
 
@@ -37,7 +37,7 @@ createAccounts()
     process.exit(0);
   })
   .catch((err) => {
-    console.error('❌ Failed to create users:', err);
+    console.error('Failed to create users:', err);
     process.exit(1);
   })
   .finally(() => db.close());

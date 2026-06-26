@@ -6,7 +6,9 @@
   const meta = document.querySelector('meta[name="api-base"]');
   if (meta?.content) {
     window.API_BASE_URL = meta.content.replace(/\/$/, '');
-  } else if (location.protocol === 'file:' || location.port !== '3000') {
+  } else if (location.hostname === 'wiki.domlp.io.vn') {
+    window.API_BASE_URL = 'https://backend_wiki.domlp.io.vn/api';
+  } else if (location.protocol === 'file:' || location.hostname === 'localhost' || location.hostname === '127.0.0.1') {
     window.API_BASE_URL = 'http://localhost:3000/api';
   } else {
     window.API_BASE_URL = '/api';

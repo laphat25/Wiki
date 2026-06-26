@@ -60,6 +60,7 @@ router.post('/logout', (req, res) => {
 });
 
 router.get('/me', (req, res) => {
+  res.setHeader('Cache-Control', 'no-store, no-cache, must-revalidate, private');
   res.json({ user: req.session?.user ?? null });
 });
 

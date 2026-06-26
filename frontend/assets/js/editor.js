@@ -94,9 +94,9 @@ function initExternalLinksEdit(movieId, wikiUrl, streamingUrl) {
       else wikiBtn.style.display = 'none';
       if (newStream) { streamBtn.href = newStream; streamBtn.style.display = ''; }
       else streamBtn.style.display = 'none';
-      showToast('✅ Liên kết đã được cập nhật!', 'success');
+      showToast('Liên kết đã được cập nhật!', 'success');
     } else {
-      showToast('❌ ' + (resWiki?.error || resStream?.error || 'Lỗi'), 'error');
+      showToast(resWiki?.error || resStream?.error || 'Lỗi', 'error');
     }
   });
 }
@@ -116,8 +116,8 @@ function initUpload(movieId) {
     input.value = '';
 
     const allowed = ['image/jpeg', 'image/png', 'image/webp', 'image/gif'];
-    if (!allowed.includes(file.type)) { showFb('error', '❌ Chỉ nhận JPG, PNG, WebP, GIF'); return; }
-    if (file.size > 2 * 1024 * 1024) { showFb('error', '❌ Tối đa 2MB'); return; }
+    if (!allowed.includes(file.type)) { showFb('error', 'Chỉ nhận JPG, PNG, WebP, GIF'); return; }
+    if (file.size > 2 * 1024 * 1024) { showFb('error', 'Tối đa 2MB'); return; }
 
     const reader = new FileReader();
     reader.onload = (e) => {
@@ -128,7 +128,7 @@ function initUpload(movieId) {
     };
     reader.readAsDataURL(file);
 
-    showFb('loading', '⏳ Đang lưu...');
+    showFb('loading', 'Đang lưu...');
     const formData = new FormData();
     formData.append('movie_id', movieId);
     formData.append('image', file);
@@ -140,20 +140,26 @@ function initUpload(movieId) {
       const data = await res.json();
       if (data.success) {
         if (infoImg) infoImg.style.backgroundImage = `url(${data.url}?t=${Date.now()})`;
-        showFb('success', '✅ Đã lưu ảnh bìa!');
-        showToast('✅ Ảnh bìa đã được cập nhật!', 'success');
+        showFb('success', 'Đã lưu ảnh bìa!');
+        showToast('Ảnh bìa đã được cập nhật!', 'success');
         setTimeout(hideFb, 2500);
       } else {
-        showFb('error', '❌ ' + (data.error || 'Upload thất bại'));
+        showFb('error', data.error || 'Upload thất bại');
       }
     } catch {
-      showFb('error', '❌ Lỗi kết nối');
+      showFb('error', 'Lỗi kết nối');
     }
   });
 
   function showFb(type, msg) {
     if (!feedback) return;
-    feedback.textContent = msg;
+    let iconHtml = '';
+    if (typeof ICONS !== 'undefined') {
+      if (type === 'success') iconHtml = ICONS.check + ' ';
+      else if (type === 'error') iconHtml = ICONS.x + ' ';
+      else if (type === 'loading') iconHtml = '<span class="spin-icon">' + ICONS.film + '</span> ';
+    }
+    feedback.innerHTML = iconHtml + '<span>' + msg + '</span>';
     feedback.className = 'infobox-upload-feedback infobox-upload-feedback--' + type;
     feedback.style.display = '';
   }
@@ -190,10 +196,10 @@ function initTrailerEdit(movieId, currentVideoId) {
     saveBtn.disabled = false;
     if (res?.success) {
       editForm.style.display = 'none';
-      showToast('✅ Trailer đã được cập nhật!', 'success');
+      showToast('Trailer đã được cập nhật!', 'success');
       location.reload();
     } else {
-      showToast('❌ ' + (res?.error || 'Lỗi'), 'error');
+      showToast(res?.error || 'Lỗi', 'error');
     }
   });
 
@@ -249,7 +255,7 @@ function initWikiEdit(movie, isEditor = false) {
 
     if (submitBtn) {
       submitBtn.disabled = true;
-      submitBtn.textContent = '⏳ Đang lưu...';
+      submitBtn.textContent = 'Đang lưu...';
     }
 
     const payload = {
@@ -272,13 +278,13 @@ function initWikiEdit(movie, isEditor = false) {
     }
 
     if (res?.success) {
-      showToast('✅ Đã cập nhật thông tin thành công!', 'success');
+      showToast('Đã cập nhật thông tin thành công!', 'success');
       closeModal();
       setTimeout(() => {
         location.reload();
       }, 1000);
     } else {
-      showToast('❌ Cập nhật thất bại: ' + (res?.error || 'Lỗi kết nối'), 'error');
+      showToast('Cập nhật thất bại: ' + (res?.error || 'Lỗi kết nối'), 'error');
     }
   });
 }

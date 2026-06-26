@@ -9,7 +9,7 @@ function initErrorBanner() {
     banner.id = 'apiErrorBanner';
     banner.className = 'api-error-banner';
     banner.innerHTML = `
-      <span>⚠️ Không thể kết nối máy chủ. Kiểm tra backend đang chạy tại <strong>/api/health</strong>.</span>
+      <span>${typeof ICONS !== 'undefined' ? ICONS.alertTriangle : '⚠️'} Không thể kết nối máy chủ. Kiểm tra backend đang chạy tại <strong>/api/health</strong>.</span>
       <button type="button" class="api-error-banner__close" aria-label="Đóng">✕</button>
     `;
     document.body.prepend(banner);

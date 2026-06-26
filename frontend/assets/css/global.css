@@ -1,7 +1,7 @@
 /* ============================================
    global.css — Reset, biến CSS, typography
    ============================================ */
-@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&family=Outfit:wght@400;600;700;800&family=Space+Mono:wght@400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Space+Mono:wght@400;700&display=swap');
 
 /* === RESET === */
 *,
@@ -133,7 +133,7 @@ ol {
 
 /* === BASE === */
 body {
-  font-family: 'Roboto', sans-serif;
+  font-family: 'Inter', sans-serif;
   background: var(--color-bg);
   background-image:
     radial-gradient(circle at 15% 50%, rgba(59, 130, 246, 0.06), transparent 25%),
@@ -145,7 +145,7 @@ body {
 
 /* === TYPOGRAPHY === */
 .font-display {
-  font-family: 'Outfit', sans-serif;
+  font-family: 'Inter', sans-serif;
   letter-spacing: -0.5px;
 }
 
@@ -157,7 +157,7 @@ h1,
 h2,
 h3,
 h4 {
-  font-family: 'Outfit', sans-serif;
+  font-family: 'Inter', sans-serif;
   line-height: 1.2;
   font-weight: 700;
   letter-spacing: -0.5px;
@@ -210,7 +210,7 @@ h4 {
   display: flex;
   align-items: center;
   gap: var(--space-3);
-  font-family: 'Outfit', sans-serif;
+  font-family: 'Inter', sans-serif;
   font-size: 1.5rem;
   font-weight: 800;
   color: white;
@@ -314,7 +314,7 @@ h4 {
   justify-content: center;
   font-size: 13px;
   font-weight: 700;
-  font-family: 'Outfit', sans-serif;
+  font-family: 'Inter', sans-serif;
   color: white;
   flex-shrink: 0;
   box-shadow: 0 0 10px rgba(59, 130, 246, 0.4);
@@ -439,7 +439,7 @@ h4 {
   border: none;
   outline: none;
   font-size: var(--type-sm);
-  font-family: 'Roboto', sans-serif;
+  font-family: 'Inter', sans-serif;
   background: transparent;
   color: var(--text-main);
   width: 180px;
@@ -496,7 +496,7 @@ h4 {
 }
 
 .footer__logo {
-  font-family: 'Outfit', sans-serif;
+  font-family: 'Inter', sans-serif;
   font-weight: 800;
   font-size: 1.25rem;
   color: white;
@@ -510,7 +510,7 @@ h4 {
   gap: var(--space-3);
 }
 .footer__brand-name {
-  font-family: 'Outfit', sans-serif;
+  font-family: 'Inter', sans-serif;
   font-weight: 800;
   font-size: 1.25rem;
   color: white;
@@ -580,7 +580,7 @@ h4 {
 }
 
 .empty-state__title {
-  font-family: 'Outfit', sans-serif;
+  font-family: 'Inter', sans-serif;
   font-weight: 700;
   font-size: var(--type-2xl);
   margin-bottom: var(--space-2);
@@ -672,4 +672,56 @@ h4 {
 @media (prefers-reduced-motion: reduce) {
   * { scroll-behavior: auto !important; }
   *, *::before, *::after { transition-duration: 0.01ms !important; animation-duration: 0.01ms !important; }
+}
+
+/* === INLINE SVG ICON UTILITIES === */
+.icon {
+  display: inline-block;
+  width: 1em;
+  height: 1em;
+  stroke-width: 2.25;
+  stroke: currentColor;
+  fill: none;
+  vertical-align: -0.15em;
+  transition: transform 0.2s ease, stroke 0.2s ease;
+}
+
+.icon--lg {
+  width: 2.5rem;
+  height: 2.5rem;
+  vertical-align: middle;
+}
+
+/* Button & Link Hover Effects with Icons */
+.btn:hover .icon,
+.nav__link a:hover .icon {
+  transform: scale(1.08);
+}
+
+/* Toast Flex & Colors */
+.toast {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+.toast__icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+.toast--success .toast__icon {
+  color: #10B981; /* emerald-500 */
+}
+.toast--error .toast__icon {
+  color: #EF4444; /* red-500 */
+}
+
+/* Spinner for Loading Feedbacks */
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+.spin-icon {
+  display: inline-block;
+  animation: spin 1s linear infinite;
 }

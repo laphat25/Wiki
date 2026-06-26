@@ -32,7 +32,7 @@ async function initLoginPage() {
       if (errEl) errEl.textContent = res?.error || 'Đăng nhập thất bại.';
       return;
     }
-    showToast('✅ Đăng nhập thành công!', 'success');
+    showToast('Đăng nhập thành công!', 'success');
     setTimeout(() => { location.href = 'index.html'; }, 500);
   });
 }

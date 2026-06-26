@@ -27,9 +27,9 @@ async function initDetailPage() {
   if (!movie || movie.error) {
     document.querySelector('.detail-page').innerHTML = `
       <div class="container empty-state">
-        <div class="empty-state__emoji">🎬</div>
+        <div class="empty-state__emoji">${ICONS.filmLg}</div>
         <div class="empty-state__title">Không tìm thấy phim</div>
-        <a class="btn btn--primary" href="movies.html">← Quay lại danh sách</a>
+        <a class="btn btn--primary" href="movies.html">${ICONS.arrowLeft} Quay lại danh sách</a>
       </div>`;
     return;
   }
@@ -56,8 +56,11 @@ async function initDetailPage() {
     if (resolvedImg) {
       imgEl.style.backgroundImage = `url(${resolvedImg})`;
       imgEl.classList.remove('no-poster');
+      imgEl.innerHTML = '';
     } else {
+      imgEl.style.backgroundImage = '';
       imgEl.classList.add('no-poster');
+      imgEl.innerHTML = typeof ICONS !== 'undefined' ? ICONS.filmLg : '';
     }
   }
 
@@ -66,7 +69,7 @@ async function initDetailPage() {
     const info = DIRECTOR_BADGE[movie.director];
     badgesEl.innerHTML = `
       ${info ? `<span class="detail-era-badge" style="--era-color:${info.color}">${info.era}</span>` : ''}
-      <span class="detail-era-badge" style="--era-color:#64748B">📽 Phim thứ #${movie.id}</span>
+      <span class="detail-era-badge" style="--era-color:#64748B">${ICONS.projector} Phim thứ #${movie.id}</span>
     `;
   }
 
@@ -102,9 +105,9 @@ async function initDetailPage() {
   document.getElementById('shareCopy')?.addEventListener('click', async () => {
     try {
       await navigator.clipboard.writeText(location.href);
-      showToast('✅ Đã sao chép link!', 'success');
+      showToast('Đã sao chép link!', 'success');
     } catch {
-      showToast('Không thể sao chép');
+      showToast('Không thể sao chép', 'error');
     }
   });
 

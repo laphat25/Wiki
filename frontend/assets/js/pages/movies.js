@@ -140,7 +140,7 @@ async function initMoviesPage() {
       e.preventDefault();
       if (submitBtn) {
         submitBtn.disabled = true;
-        submitBtn.textContent = '⏳ Đang thêm...';
+        submitBtn.textContent = 'Đang thêm...';
       }
 
       const payload = {
@@ -162,13 +162,13 @@ async function initMoviesPage() {
       }
 
       if (res?.success) {
-        showToast('✅ Đã thêm phim mới thành công!', 'success');
+        showToast('Đã thêm phim mới thành công!', 'success');
         closeModal();
         setTimeout(() => {
           location.reload();
         }, 1000);
       } else {
-        showToast('❌ Thêm thất bại: ' + (res?.error || 'Lỗi kết nối'), 'error');
+        showToast('Thêm thất bại: ' + (res?.error || 'Lỗi kết nối'), 'error');
       }
     });
   }

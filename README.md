@@ -196,3 +196,16 @@ The backend uses a **repository → service → route** pattern. The `db/connect
 
 Fan-made · Non-commercial · Doraemon © Fujiko Pro / Shogakukan / TV Asahi
 # Wiki
+
+
+1. Tài khoản Quản trị viên (Admin)
+Tên đăng nhập (Username): admin (hoặc Email: admin@example.com)
+Mật khẩu (Password): adminpass
+Vai trò: admin (Có toàn quyền quản trị hệ thống, duyệt phim, quản lý người dùng, comment, v.v.)
+2. Tài khoản Biên tập viên (Editor)
+Tên đăng nhập (Username): editor (hoặc Email: editor@example.com)
+Mật khẩu (Password): editorpass
+Vai trò: editor (Có quyền đăng bài, chỉnh sửa thông tin phim, v.v.)
+3. Tài khoản Người dùng thường (User - dùng thử)
+Tên đăng nhập (Username): person (hoặc Email: person@example.com)
+Mật khẩu (Password): personpass

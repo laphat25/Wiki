@@ -36,12 +36,12 @@ function initNavSearch() {
 
       dropdown.innerHTML = `<div class="nav__search-dropdown-list">${results.slice(0, 6).map((m) => `
         <a href="detail.html?id=${m.id}" class="nav__search-item">
-          <div class="nav__search-item-emoji">🎬</div>
+          <div class="nav__search-item-emoji">${ICONS.film}</div>
           <div class="nav__search-item-info">
             <span class="nav__search-item-title">${escapeHtml(m.title_vi)}</span>
             <span class="nav__search-item-desc">${m.release_year} · ${escapeHtml(m.director || '—')}</span>
           </div>
-          ${isFavorite(m.id) ? '<span class="nav__search-fav">❤️</span>' : ''}
+          ${isFavorite(m.id) ? '<span class="nav__search-fav">' + ICONS.heartFilled + '</span>' : ''}
         </a>
       `).join('')}</div>`;
     }, 280);

@@ -152,9 +152,9 @@ async function initComments(movieId, currentUser) {
 
         card.querySelector('.comment-delete-btn')
           ?.addEventListener('click', () => handleDeleteComment(res.comment.id, currentUser, list, countEl, emptyEl));
-        showToast('✅ Đã gửi bình luận!', 'success');
+        showToast('Đã gửi bình luận!', 'success');
       } else {
-        showToast('❌ ' + (res?.error || 'Không thể gửi bình luận'), 'error');
+        showToast(res?.error || 'Không thể gửi bình luận', 'error');
       }
     });
   } else {
@@ -206,6 +206,6 @@ async function handleDeleteComment(commentId, currentUser, list, countEl, emptyE
     }, 350);
     showToast('Đã xoá bình luận');
   } else {
-    showToast('❌ ' + (res?.error || 'Không thể xoá'), 'error');
+    showToast(res?.error || 'Không thể xoá', 'error');
   }
 }

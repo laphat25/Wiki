@@ -30,6 +30,7 @@ const db = require('./db/connection');
 runMigrations();
 
 const app = express();
+app.set('trust proxy', 1);
 
 // ============================================
 // Security & logging
@@ -37,6 +38,7 @@ const app = express();
 app.use(helmet({
   contentSecurityPolicy: false, // frontend uses inline styles/scripts
   crossOriginEmbedderPolicy: false,
+  crossOriginResourcePolicy: { policy: 'cross-origin' },
 }));
 app.use(requestIdMiddleware);
 app.use(pinoHttp({
@@ -118,6 +120,15 @@ app.use((req, res, next) => {
 app.use('/uploads', express.static(path.join(__dirname, '../uploads')));
 const frontendPath = process.env.FRONTEND_PATH
   || path.join(__dirname, '../../frontend');
+
+// Trả về JSON thông báo API nếu truy cập qua domain backend trên Cloudflare
+app.use((req, res, next) => {
+  if (req.hostname === 'backend_wiki.domlp.io.vn' && req.path === '/') {
+    return res.json({ name: "Doraemon Wiki API", status: "running", version: "2.0.0" });
+  }
+  next();
+});
+
 app.use('/', express.static(frontendPath));
 
 // ============================================

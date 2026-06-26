@@ -42,7 +42,7 @@ async function initRegisterPage() {
       if (errEl) errEl.textContent = res?.error || 'Đăng ký thất bại.';
       return;
     }
-    showToast('✅ Đăng ký thành công!', 'success');
+    showToast('Đăng ký thành công!', 'success');
     setTimeout(() => { location.href = 'login.html'; }, 800);
   });
 }

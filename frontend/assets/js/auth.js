@@ -30,11 +30,11 @@ async function initAuthNav() {
       <svg class="nav__auth-caret" xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
     `;
     const adminLink = user.role === 'admin'
-      ? `<a href="admin.html" class="nav__auth-action nav__auth-action--secondary" style="border-color:var(--accent-yellow); color:var(--accent-yellow);">🔑 Quản trị viên</a>`
+      ? `<a href="admin.html" class="nav__auth-action nav__auth-action--secondary" style="border-color:var(--accent-yellow); color:var(--accent-yellow);">${typeof ICONS !== 'undefined' ? ICONS.key : '🔑'} Quản trị viên</a>`
       : '';
     authPanel.innerHTML = `
       <div class="nav__auth-hint">Xin chào, <strong>${escapeHtml(user.username)}</strong></div>
-      <a href="favorites.html" class="nav__auth-action nav__auth-action--fav">❤️ Yêu thích (${favCount})</a>
+      <a href="favorites.html" class="nav__auth-action nav__auth-action--fav">${typeof ICONS !== 'undefined' ? ICONS.heartFilled : '❤️'} Yêu thích (${favCount})</a>
       ${adminLink}
       <button id="logoutLink" class="nav__auth-action nav__auth-action--logout">ĐĂNG XUẤT</button>
     `;

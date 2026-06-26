@@ -10,7 +10,7 @@
   gap: var(--space-2);
   padding: 14px 28px;
   border-radius: 30px;
-  font-family: 'Roboto', sans-serif;
+  font-family: 'Inter', sans-serif;
   font-weight: 600;
   font-size: var(--type-base);
   transition: all var(--transition);
@@ -270,7 +270,7 @@
 }
 .set-card__emoji { font-size: 2.5rem; margin-bottom: var(--space-3); display: block; filter: drop-shadow(0 0 10px rgba(255,255,255,0.3)); }
 .set-card__name {
-  font-family: 'Outfit', sans-serif;
+  font-family: 'Inter', sans-serif;
   font-size: var(--type-2xl);
   font-weight: 800;
   letter-spacing: 0.5px;
@@ -370,7 +370,7 @@
 .modal__emoji { font-size: 3.5rem; line-height: 1; filter: drop-shadow(0 0 15px rgba(255,255,255,0.2)); z-index: 1; }
 .modal__header > div { z-index: 1; }
 .modal__title {
-  font-family: 'Outfit', sans-serif;
+  font-family: 'Inter', sans-serif;
   font-weight: 800;
   font-size: var(--type-2xl);
   color: white;
@@ -419,7 +419,7 @@
   flex: 1;
   padding: var(--space-3);
   border-radius: var(--radius-sm);
-  font-family: 'Outfit', sans-serif;
+  font-family: 'Inter', sans-serif;
   font-weight: 600;
   font-size: var(--type-base);
   transition: all var(--transition);
@@ -455,7 +455,7 @@
   flex-wrap: wrap;
 }
 .section-title {
-  font-family: 'Outfit', sans-serif;
+  font-family: 'Inter', sans-serif;
   font-weight: 800;
   font-size: var(--type-3xl);
   color: white;
@@ -469,7 +469,7 @@
   border-radius: 20px;
 }
 .section-link {
-  font-family: 'Roboto', sans-serif;
+  font-family: 'Inter', sans-serif;
   font-size: var(--type-sm);
   font-weight: 600;
   color: var(--accent-blue);
@@ -535,7 +535,7 @@
 .nav__search-item:hover { background: rgba(59,130,246,0.15); }
 .nav__search-item-emoji { font-size: 1.5rem; background: rgba(255,255,255,0.05); padding: 6px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.05); }
 .nav__search-item-info { display: flex; flex-direction: column; gap: 2px; }
-.nav__search-item-title { font-family: 'Outfit', sans-serif; font-weight: 600; font-size: var(--type-sm); }
+.nav__search-item-title { font-family: 'Inter', sans-serif; font-weight: 600; font-size: var(--type-sm); }
 .nav__search-item-desc { font-family: 'Space Mono', monospace; font-size: 10px; color: var(--accent-cyan); text-transform: uppercase; }
 .nav__search-loading { padding: var(--space-4); text-align: center; color: var(--text-muted); font-size: var(--type-sm); }
 .nav__search-empty { padding: var(--space-4); text-align: center; color: var(--accent-red); font-size: var(--type-sm); font-weight: 500;}

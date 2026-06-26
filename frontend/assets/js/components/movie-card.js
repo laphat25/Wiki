@@ -27,8 +27,8 @@ function renderGadgetCard(m) {
   return `
     <a href="detail.html?id=${m.id}" class="gadget-card gadget-card--movie">
       <div class="gadget-card__img" style="${bg}">
-        ${!resolvedImg ? '🎬' : ''}
-        ${fav ? '<span class="gadget-card__fav-badge">❤️</span>' : ''}
+        ${!resolvedImg ? ICONS.film : ''}
+        ${fav ? '<span class="gadget-card__fav-badge">' + ICONS.heartFilled + '</span>' : ''}
       </div>
       <div class="gadget-card__body">
         <div class="gadget-card__name">${escapeHtml(m.title_vi)}</div>
@@ -50,9 +50,9 @@ function renderMovieCard(m) {
   return `
     <a href="detail.html?id=${m.id}" class="movie-card" data-era="${getEraDecade(m.release_year)}" data-id="${m.id}">
       <div class="movie-card__poster" style="${bg}">
-        ${!resolvedImg ? '<div class="movie-card__poster-emoji">🎬</div>' : ''}
+        ${!resolvedImg ? '<div class="movie-card__poster-emoji">' + ICONS.filmLg + '</div>' : ''}
         <div class="movie-card__year-badge">${m.release_year}</div>
-        ${fav ? '<div class="movie-card__fav">❤️</div>' : ''}
+        ${fav ? '<div class="movie-card__fav">' + ICONS.heartFilled + '</div>' : ''}
       </div>
       <div class="movie-card__body">
         <div class="movie-card__num">#${m.id}</div>
@@ -72,13 +72,13 @@ function renderMovieRow(m) {
     <tr style="cursor:pointer" onclick="location.href='detail.html?id=${m.id}'">
       <td>${m.id}</td>
       <td>
-        <div class="movie-title-vi">${escapeHtml(m.title_vi)} ${fav ? '❤️' : ''}</div>
+        <div class="movie-title-vi">${escapeHtml(m.title_vi)} ${fav ? ICONS.heartFilled : ''}</div>
         ${m.title_jp ? `<div class="movie-title-jp">${escapeHtml(m.title_jp)}</div>` : ''}
       </td>
       <td><span class="movie-year">${m.release_year}</span></td>
       <td class="movie-date">${escapeHtml(m.release_date || '—')}</td>
       <td class="movie-director">${escapeHtml(m.director || '—')}</td>
-      <td><span style="color:var(--text-muted);font-size:12px">→</span></td>
+      <td><span style="color:var(--text-muted);font-size:12px">${ICONS.arrowRight}</span></td>
     </tr>
   `;
 }
