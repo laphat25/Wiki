@@ -41,6 +41,22 @@ async function initMoviesPage() {
     applyFilters();
   });
 
+  const localSearch = document.getElementById('filterSearch');
+  const filterYear = document.getElementById('filterYear');
+  const filterDirector = document.getElementById('filterDirector');
+
+  localSearch?.addEventListener('input', () => {
+    applyFilters();
+  });
+
+  filterYear?.addEventListener('change', () => {
+    applyFilters();
+  });
+
+  filterDirector?.addEventListener('change', () => {
+    applyFilters();
+  });
+
   eraFilter?.addEventListener('click', (e) => {
     const btn = e.target.closest('.era-btn');
     if (!btn) return;
@@ -51,24 +67,35 @@ async function initMoviesPage() {
   });
 
   navInput?.addEventListener('input', () => {
-    searchQ = navInput.value.toLowerCase().trim();
+    if (localSearch) localSearch.value = navInput.value;
     applyFilters();
   });
 
   function applyFilters() {
     let filtered = allMovies;
 
-    if (searchQ.length >= 1) {
+    const searchVal = (localSearch?.value || navInput?.value || '').toLowerCase().trim();
+    if (searchVal.length >= 1) {
       filtered = filtered.filter((m) =>
-        m.title_vi.toLowerCase().includes(searchQ)
-        || (m.title_jp || '').toLowerCase().includes(searchQ)
-        || String(m.release_year).includes(searchQ)
-        || (m.director || '').toLowerCase().includes(searchQ)
+        m.title_vi.toLowerCase().includes(searchVal)
+        || (m.title_jp || '').toLowerCase().includes(searchVal)
+        || String(m.release_year).includes(searchVal)
+        || (m.director || '').toLowerCase().includes(searchVal)
       );
     }
 
     if (currentEra !== 'all') {
       filtered = filtered.filter((m) => getEraDecade(m.release_year) === currentEra);
+    }
+
+    const selectedYear = filterYear?.value ?? 'all';
+    if (selectedYear !== 'all') {
+      filtered = filtered.filter((m) => String(m.release_year) === selectedYear);
+    }
+
+    const selectedDirector = filterDirector?.value ?? 'all';
+    if (selectedDirector !== 'all') {
+      filtered = filtered.filter((m) => m.director === selectedDirector);
     }
 
     if (countEl) countEl.textContent = `${filtered.length} phim`;
@@ -89,6 +116,20 @@ async function initMoviesPage() {
     }
   }
 
+  function populateAdvancedFilterOptions(movies) {
+    if (filterYear) {
+      const years = [...new Set(movies.map(m => m.release_year))].sort((a, b) => b - a);
+      filterYear.innerHTML = '<option value="all">Tất cả năm</option>' + 
+        years.map(y => `<option value="${y}">${y}</option>`).join('');
+    }
+
+    if (filterDirector) {
+      const directors = [...new Set(movies.map(m => m.director).filter(Boolean))].sort();
+      filterDirector.innerHTML = '<option value="all">Tất cả đạo diễn</option>' + 
+        directors.map(d => `<option value="${escapeHtml(d)}">${escapeHtml(d)}</option>`).join('');
+    }
+  }
+
   const movies = unwrapList(await apiGet('movies'));
   if (!movies.length) {
     if (emptyEl) { emptyEl.style.display = ''; grid.innerHTML = ''; }
@@ -96,6 +137,7 @@ async function initMoviesPage() {
   }
 
   allMovies = movies;
+  populateAdvancedFilterOptions(movies);
   if (countEl) countEl.textContent = `${movies.length} phim`;
   applyFilters();
 

@@ -219,6 +219,26 @@ async function openMovieEditor(movieId) {
   document.getElementById('editPlot').value = m.plot || '';
   document.getElementById('editIsFeatured').checked = Boolean(m.is_featured);
 
+  // Reset file input
+  const fileInput = document.getElementById('adminMoviePosterInput');
+  if (fileInput) fileInput.value = '';
+
+  const feedback = document.getElementById('adminPosterFeedback');
+  if (feedback) feedback.style.display = 'none';
+
+  // Image Preview
+  const preview = document.getElementById('adminMoviePosterPreview');
+  if (preview) {
+    if (m.image_url) {
+      const resolvedImg = typeof window.resolveImageUrl === 'function' ? window.resolveImageUrl(m.image_url) : m.image_url;
+      preview.style.backgroundImage = `url(${resolvedImg})`;
+      preview.textContent = '';
+    } else {
+      preview.style.backgroundImage = '';
+      preview.textContent = 'No Poster';
+    }
+  }
+
   modal.classList.add('open');
 }
 
@@ -229,6 +249,9 @@ function setupMovieEditorModal() {
   const form = document.getElementById('editMovieForm');
   const submitBtn = document.getElementById('editMovieSubmit');
   const addBtn = document.getElementById('adminAddMovieBtn');
+  const fileInput = document.getElementById('adminMoviePosterInput');
+  const preview = document.getElementById('adminMoviePosterPreview');
+  const feedback = document.getElementById('adminPosterFeedback');
 
   if (!modal || !form) return;
 
@@ -239,6 +262,41 @@ function setupMovieEditorModal() {
 
   cancelBtn?.addEventListener('click', closeModal);
   overlay?.addEventListener('click', closeModal);
+
+  // Local File Input Change listener to update preview immediately
+  fileInput?.addEventListener('change', () => {
+    const file = fileInput.files?.[0];
+    if (file && preview) {
+      const allowed = ['image/jpeg', 'image/png', 'image/webp', 'image/gif'];
+      if (!allowed.includes(file.type)) {
+        if (feedback) {
+          feedback.textContent = 'Chỉ hỗ trợ file ảnh (JPG, PNG, WebP, GIF)';
+          feedback.style.color = 'var(--accent-red)';
+          feedback.style.display = '';
+        }
+        fileInput.value = '';
+        return;
+      }
+      if (file.size > 2 * 1024 * 1024) {
+        if (feedback) {
+          feedback.textContent = 'File quá dung lượng cho phép (tối đa 2MB)';
+          feedback.style.color = 'var(--accent-red)';
+          feedback.style.display = '';
+        }
+        fileInput.value = '';
+        return;
+      }
+
+      if (feedback) feedback.style.display = 'none';
+
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        preview.style.backgroundImage = `url(${e.target.result})`;
+        preview.textContent = '';
+      };
+      reader.readAsDataURL(file);
+    }
+  });
 
   addBtn?.addEventListener('click', () => {
     currentEditingMovieId = null;
@@ -252,6 +310,13 @@ function setupMovieEditorModal() {
     document.getElementById('editThemeSong').value = '';
     document.getElementById('editPlot').value = '';
     document.getElementById('editIsFeatured').checked = false;
+
+    if (fileInput) fileInput.value = '';
+    if (preview) {
+      preview.style.backgroundImage = '';
+      preview.textContent = 'No Poster';
+    }
+    if (feedback) feedback.style.display = 'none';
 
     const modalTitle = modal.querySelector('h2');
     if (modalTitle) modalTitle.textContent = 'Thêm Phim Mới';
@@ -284,16 +349,41 @@ function setupMovieEditorModal() {
       response = await apiPost('movies', payload);
     }
 
-    submitBtn.disabled = false;
-    submitBtn.textContent = 'Lưu Thay Đổi';
-
     if (response?.success) {
+      const activeMovieId = currentEditingMovieId || response.movie?.id;
+      const file = fileInput?.files?.[0];
+
+      if (activeMovieId && file) {
+        submitBtn.textContent = 'Đang tải poster...';
+        const formData = new FormData();
+        formData.append('movie_id', activeMovieId);
+        formData.append('image', file);
+
+        try {
+          const uploadRes = await fetch(`${API_BASE_URL}/upload`, {
+            method: 'POST', credentials: 'include', body: formData,
+          });
+          const uploadData = await uploadRes.json();
+          if (!uploadData.success) {
+            showToast('Lưu phim thành công nhưng không thể upload poster: ' + (uploadData.error || ''), 'warning');
+          }
+        } catch (uploadErr) {
+          console.error(uploadErr);
+          showToast('Lưu phim thành công nhưng không thể upload poster do lỗi mạng', 'warning');
+        }
+      }
+
+      submitBtn.disabled = false;
+      submitBtn.textContent = 'Lưu Thay Đổi';
+
       showToast(currentEditingMovieId ? 'Đã cập nhật phim dài thành công!' : 'Đã thêm phim mới thành công!', 'success');
       closeModal();
       // Reload lists
       await loadAdminMovies();
       await loadAdminStats();
     } else {
+      submitBtn.disabled = false;
+      submitBtn.textContent = 'Lưu Thay Đổi';
       showToast('Lỗi: ' + (response?.error || 'Không thể lưu'), 'error');
     }
   });

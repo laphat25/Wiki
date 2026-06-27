@@ -5,164 +5,11 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Bảng Quản Trị — Doraemon Wiki</title>
+  <link rel="icon" href="favicon.png" type="image/png" />
   <link rel="stylesheet" href="assets/css/global.css" />
   <link rel="stylesheet" href="assets/css/components.css" />
   <link rel="stylesheet" href="assets/css/pages.css" />
-  <style>
-    .admin-stats-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-      gap: var(--space-4);
-      margin-bottom: var(--space-8);
-    }
-    .admin-stat-card {
-      background: rgba(255, 255, 255, 0.03);
-      border: 1px solid rgba(255, 255, 255, 0.08);
-      border-radius: var(--radius-md);
-      padding: var(--space-5);
-      text-align: center;
-      backdrop-filter: blur(10px);
-    }
-    .admin-stat-card__num {
-      font-size: 2.5rem;
-      font-weight: 800;
-      color: var(--accent-cyan);
-      margin-bottom: var(--space-1);
-    }
-    .admin-stat-card__label {
-      font-size: 12px;
-      color: var(--text-muted);
-      text-transform: uppercase;
-      letter-spacing: 1px;
-    }
-    .admin-tabs {
-      display: flex;
-      gap: var(--space-3);
-      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-      margin-bottom: var(--space-6);
-    }
-    .admin-tab-btn {
-      background: transparent;
-      border: none;
-      color: var(--text-muted);
-      padding: var(--space-3) var(--space-5);
-      font-family: 'Inter', sans-serif;
-      font-weight: 700;
-      font-size: 15px;
-      cursor: pointer;
-      border-bottom: 2px solid transparent;
-      transition: all var(--transition);
-    }
-    .admin-tab-btn.active {
-      color: var(--accent-yellow);
-      border-bottom-color: var(--accent-yellow);
-    }
-    .admin-table-container {
-      background: rgba(15, 23, 42, 0.4);
-      border: 1px solid rgba(255, 255, 255, 0.08);
-      border-radius: var(--radius-lg);
-      padding: var(--space-4);
-      backdrop-filter: blur(20px);
-      overflow-x: auto;
-    }
-    .admin-table {
-      width: 100%;
-      border-collapse: collapse;
-      text-align: left;
-      font-size: 13px;
-    }
-    .admin-table th {
-      color: var(--text-muted);
-      font-weight: 600;
-      padding: var(--space-3);
-      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-      text-transform: uppercase;
-      font-size: 11px;
-    }
-    .admin-table td {
-      padding: var(--space-3);
-      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-      color: white;
-    }
-    .admin-table tr:hover td {
-      background: rgba(255, 255, 255, 0.02);
-    }
-    .admin-btn-sm {
-      padding: 4px 8px;
-      font-size: 11px;
-      border-radius: 4px;
-      border: 1px solid transparent;
-      cursor: pointer;
-      transition: all 0.2s;
-    }
-    .admin-btn-delete {
-      background: rgba(239, 68, 68, 0.15);
-      border-color: rgba(239, 68, 68, 0.3);
-      color: var(--accent-red);
-    }
-    .admin-btn-delete:hover {
-      background: var(--accent-red);
-      color: white;
-    }
-    .admin-btn-edit {
-      background: rgba(251, 191, 36, 0.15);
-      border-color: rgba(251, 191, 36, 0.3);
-      color: var(--accent-yellow);
-      margin-right: 5px;
-    }
-    .admin-btn-edit:hover {
-      background: var(--accent-yellow);
-      color: var(--text-dark);
-    }
-    /* Edit Movie Modal */
-    .admin-modal {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100vw;
-      height: 100vh;
-      z-index: 10001;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      opacity: 0;
-      pointer-events: none;
-      transition: opacity 0.3s;
-    }
-    .admin-modal.open {
-      opacity: 1;
-      pointer-events: auto;
-    }
-    .admin-modal__overlay {
-      position: absolute;
-      width: 100%;
-      height: 100%;
-      background: rgba(10, 15, 30, 0.85);
-      backdrop-filter: blur(8px);
-    }
-    .admin-modal__content {
-      position: relative;
-      background: rgba(30, 41, 59, 0.95);
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      border-radius: var(--radius-lg);
-      padding: var(--space-6);
-      width: 90%;
-      max-width: 600px;
-      max-height: 85vh;
-      overflow-y: auto;
-      box-shadow: 0 24px 64px rgba(0,0,0,0.5);
-      backdrop-filter: blur(20px);
-      z-index: 10;
-    }
-    .form-grid-2 {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: var(--space-4);
-    }
-    @media (max-width: 600px) {
-      .form-grid-2 { grid-template-columns: 1fr; }
-    }
-  </style>
+
 </head>
 
 <body>
@@ -323,6 +170,18 @@
         <div style="display: flex; flex-direction: column; gap: var(--space-1);">
           <label for="editPlot" style="font-size: 11px; color: var(--text-muted);">Tóm tắt nội dung</label>
           <textarea id="editPlot" class="trailer-url-input" rows="4" style="font-family: inherit; resize: vertical;"></textarea>
+        </div>
+
+        <!-- Poster Upload Field -->
+        <div style="display: flex; flex-direction: column; gap: var(--space-2); margin-top: var(--space-1); background: rgba(255, 255, 255, 0.02); border: 1px solid rgba(255, 255, 255, 0.05); padding: var(--space-3); border-radius: var(--radius-sm);">
+          <label style="font-size: 11px; color: var(--text-muted); font-family: 'Space Mono', monospace; text-transform: uppercase; letter-spacing: 0.5px;">Ảnh poster phim</label>
+          <div style="display: flex; gap: var(--space-4); align-items: center;">
+            <div id="adminMoviePosterPreview" style="width: 60px; height: 90px; background-size: cover; background-position: center; border-radius: 4px; border: 1px solid rgba(255, 255, 255, 0.1); background-color: rgba(255, 255, 255, 0.02); display: flex; align-items: center; justify-content: center; font-size: 9px; color: var(--text-muted); flex-shrink: 0;">No Poster</div>
+            <div style="display: flex; flex-direction: column; gap: var(--space-1); flex: 1; min-width: 0;">
+              <input type="file" id="adminMoviePosterInput" accept="image/jpeg,image/png,image/webp,image/gif" class="form-control" style="padding: 6px 12px; font-size: 12px;" />
+              <div id="adminPosterFeedback" style="font-size: 11px; color: var(--accent-cyan); display: none;"></div>
+            </div>
+          </div>
         </div>
 
         <div style="display: flex; align-items: center; gap: 10px; margin: var(--space-2) 0;">

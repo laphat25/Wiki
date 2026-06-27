@@ -6,6 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Giới Thiệu & Liên Hệ — Doraemon Wiki</title>
   <meta name="description" content="Giới thiệu về dự án Doraemon Movies Wiki và thông tin góp ý liên hệ." />
+  <link rel="icon" href="favicon.png" type="image/png" />
   <link rel="stylesheet" href="assets/css/global.css" />
   <link rel="stylesheet" href="assets/css/components.css" />
   <link rel="stylesheet" href="assets/css/pages.css" />
@@ -44,15 +45,39 @@
   </nav>
 
   <!-- ========== ABOUT CONTENT ========== -->
-  <main class="about-page">
+  <main class="about-page animate-fade-in">
     <div class="container">
+      
+      <!-- Hero Banner -->
+      <div class="about-hero">
+        <h1 class="about-hero__title">Giới Thiệu Dự Án</h1>
+        <div class="about-hero__subtitle">Doraemon Movies Wiki — Bách Khoa Điện Ảnh</div>
+        <p class="about-hero__desc">
+          Nơi lưu giữ, tổng hợp và chia sẻ thông tin chi tiết về các tác phẩm điện ảnh dài của chú mèo máy Doraemon. Được vận hành bởi cộng đồng người hâm mộ.
+        </p>
+        
+        <!-- Stats Dashboard -->
+        <div class="about-stats">
+          <div class="about-stat-card">
+            <div class="about-stat-card__num highlight-cyan">45+</div>
+            <div class="about-stat-card__label">Phim Điện Ảnh</div>
+          </div>
+          <div class="about-stat-card">
+            <div class="about-stat-card__num highlight-yellow">1980</div>
+            <div class="about-stat-card__label">Năm Khởi Đầu</div>
+          </div>
+          <div class="about-stat-card">
+            <div class="about-stat-card__num highlight-purple">Fan-made</div>
+            <div class="about-stat-card__label">Cộng Đồng</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Content + Sidebar -->
       <div class="wiki-layout">
         
         <!-- LEFT: About Text -->
         <div class="wiki-main">
-          <h1>GIỚI THIỆU DỰ ÁN</h1>
-          <h2 class="jp-title">Doraemon Movies Wiki — Bách Khoa Điện Ảnh</h2>
-          
           <div class="wiki-section">
             <h3><svg class="icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg> Sứ mệnh của chúng tôi</h3>
             <p>
@@ -72,30 +97,30 @@
         </div>
 
         <!-- RIGHT: Feedback Form -->
-        <aside class="wiki-infobox" style="padding: var(--space-5); width: 100%; max-width: 420px; box-sizing: border-box;">
-          <div class="infobox-title" style="border: none; background: transparent; padding: 0 0 var(--space-4) 0; text-align: left; font-size: 1.4rem;">
+        <aside class="about-sidebar-card">
+          <div class="infobox-title">
             <svg class="icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg> Gửi Phản Hồi
           </div>
           
-          <form id="feedbackForm" style="display: flex; flex-direction: column; gap: var(--space-4); margin-top: var(--space-2);">
-            <div style="display: flex; flex-direction: column; gap: var(--space-2);">
-              <label for="fbName" style="font-size: 12px; font-weight: 600; color: var(--text-muted);">Họ và tên</label>
-              <input type="text" id="fbName" class="trailer-url-input" placeholder="Nhập họ tên của bạn..." required />
+          <form id="feedbackForm" class="about-feedback-form">
+            <div class="about-form-field">
+              <label for="fbName">Họ và tên</label>
+              <input type="text" id="fbName" class="form-control" placeholder="Nhập họ tên của bạn..." required />
             </div>
 
-            <div style="display: flex; flex-direction: column; gap: var(--space-2);">
-              <label for="fbEmail" style="font-size: 12px; font-weight: 600; color: var(--text-muted);">Địa chỉ Email</label>
-              <input type="email" id="fbEmail" class="trailer-url-input" placeholder="Nhập email liên hệ..." required />
+            <div class="about-form-field">
+              <label for="fbEmail">Địa chỉ Email</label>
+              <input type="email" id="fbEmail" class="form-control" placeholder="Nhập email liên hệ..." required />
             </div>
 
-            <div style="display: flex; flex-direction: column; gap: var(--space-2);">
-              <label for="fbSubject" style="font-size: 12px; font-weight: 600; color: var(--text-muted);">Tiêu đề</label>
-              <input type="text" id="fbSubject" class="trailer-url-input" placeholder="Tiêu đề góp ý..." required />
+            <div class="about-form-field">
+              <label for="fbSubject">Tiêu đề</label>
+              <input type="text" id="fbSubject" class="form-control" placeholder="Tiêu đề góp ý..." required />
             </div>
 
-            <div style="display: flex; flex-direction: column; gap: var(--space-2);">
-              <label for="fbMessage" style="font-size: 12px; font-weight: 600; color: var(--text-muted);">Nội dung</label>
-              <textarea id="fbMessage" class="trailer-url-input" placeholder="Nhập nội dung tin nhắn góp ý..." rows="5" style="resize: vertical; font-family: inherit;" required></textarea>
+            <div class="about-form-field">
+              <label for="fbMessage">Nội dung</label>
+              <textarea id="fbMessage" class="form-control" placeholder="Nhập nội dung tin nhắn góp ý..." rows="5" style="resize: vertical;" required></textarea>
             </div>
 
             <button type="submit" class="btn btn--primary" id="fbSubmitBtn" style="padding: 12px; font-weight: 700; width: 100%; border-radius: var(--radius-sm); margin-top: var(--space-2);">

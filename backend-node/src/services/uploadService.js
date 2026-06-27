@@ -38,17 +38,31 @@ async function uploadMoviePoster(movieId, file) {
     // ignore
   }
 
-  const filename = `cover.${validation.ext}`;
-  const destPath = path.join(movieDir, filename);
-  fs.writeFileSync(destPath, file.buffer);
+  let finalBuffer = file.buffer;
+  let finalExt = validation.ext;
 
-  const relativeUrl = `/uploads/movies/${id}/${filename}`;
+  try {
+    const sharp = require('sharp');
+    finalBuffer = await sharp(file.buffer)
+      .resize({ width: 500, withoutEnlargement: true })
+      .jpeg({ quality: 80, progressive: true })
+      .toBuffer();
+    finalExt = 'jpg';
+  } catch (sharpError) {
+    console.error('Sharp image processing failed, fallback to original buffer:', sharpError);
+  }
+
+  const filename = `cover.${finalExt}`;
+  const destPath = path.join(movieDir, filename);
+  fs.writeFileSync(destPath, finalBuffer);
+
+  const relativeUrl = `/uploads/movies/${id}/${filename}?v=${Date.now()}`;
   movieRepository.updateField(id, 'image_url', relativeUrl);
 
   return {
     success: true,
     url: relativeUrl,
-    message: 'Poster uploaded successfully',
+    message: 'Poster uploaded and processed successfully',
   };
 }
 

@@ -6,7 +6,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Danh sách phim dài Doraemon — Doraemon Wiki</title>
   <meta name="description"
-    content="Danh sách đầy đủ 43 phim điện ảnh dài của Doraemon từ năm 1980 đến nay, bao gồm tên tiếng Việt, tên Nhật và năm phát hành.">
+    content="Danh sách đầy đủ 45 phim điện ảnh dài của Doraemon từ năm 1980 đến nay, bao gồm tên tiếng Việt, tên Nhật và năm phát hành.">
+  <link rel="icon" href="favicon.png" type="image/png">
   <link rel="stylesheet" href="assets/css/global.css">
   <link rel="stylesheet" href="assets/css/components.css">
   <link rel="stylesheet" href="assets/css/pages.css">
@@ -53,10 +54,10 @@
     <div class="container">
       <div class="movies-hero__eyebrow"><svg class="icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="2.18" ry="2.18"/><line x1="7" y1="2" x2="7" y2="22"/><line x1="17" y1="2" x2="17" y2="22"/><line x1="2" y1="12" x2="22" y2="12"/><line x1="2" y1="7" x2="7" y2="7"/><line x1="2" y1="17" x2="7" y2="17"/><line x1="17" y1="7" x2="22" y2="7"/><line x1="17" y1="17" x2="22" y2="17"/></svg> Điện ảnh</div>
       <h1 class="movies-hero__title">PHIM DÀI<br><span>DORAEMON</span></h1>
-      <p class="movies-hero__sub">Khám phá toàn bộ 43 tác phẩm điện ảnh của Doraemon từ 1980 đến nay</p>
+      <p class="movies-hero__sub">Khám phá toàn bộ 45 tác phẩm điện ảnh của Doraemon từ 1980 đến nay</p>
       <div class="movies-stats">
         <div class="movies-stat">
-          <div class="movies-stat__num" id="totalMovies">43</div>
+          <div class="movies-stat__num" id="totalMovies">45</div>
           <div class="movies-stat__label">Phim dài</div>
         </div>
         <div class="movies-stat">
@@ -64,7 +65,7 @@
           <div class="movies-stat__label">Năm đầu tiên</div>
         </div>
         <div class="movies-stat">
-          <div class="movies-stat__num">44+</div>
+          <div class="movies-stat__num">46+</div>
           <div class="movies-stat__label">Năm chiếu</div>
         </div>
       </div>
@@ -93,7 +94,7 @@
 
         <!-- View Toggle + Count -->
         <div class="movies-controls-right">
-          <span class="movies-count" id="movieCount">43 phim</span>
+          <span class="movies-count" id="movieCount">45 phim</span>
           <div class="view-toggle">
             <button class="view-btn active" id="viewGrid" title="Dạng lưới" aria-label="Dạng lưới">
               <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
@@ -102,6 +103,26 @@
               <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg>
             </button>
           </div>
+        </div>
+      </div>
+
+      <!-- Advanced Search & Filter Panel -->
+      <div class="advanced-filters-panel animate-fade-in" id="advancedFiltersPanel" style="display: flex; gap: var(--space-4); flex-wrap: wrap; background: rgba(15, 23, 42, 0.4); border: 1px solid rgba(255, 255, 255, 0.06); padding: var(--space-4); border-radius: var(--radius-md); margin-bottom: var(--space-6); backdrop-filter: blur(10px);">
+        <div style="flex: 1.5; min-width: 200px; display: flex; flex-direction: column; gap: var(--space-2);">
+          <label for="filterSearch" style="font-size: 11px; color: var(--text-muted); font-family: 'Space Mono', monospace; text-transform: uppercase; letter-spacing: 0.5px; display: flex; align-items: center; gap: 6px;"><svg class="icon" xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg> Tìm kiếm phim</label>
+          <input type="text" id="filterSearch" class="form-control" placeholder="Nhập tên phim, đạo diễn, ca khúc chủ đề..." />
+        </div>
+        <div style="flex: 1; min-width: 140px; display: flex; flex-direction: column; gap: var(--space-2);">
+          <label for="filterYear" style="font-size: 11px; color: var(--text-muted); font-family: 'Space Mono', monospace; text-transform: uppercase; letter-spacing: 0.5px; display: flex; align-items: center; gap: 6px;"><svg class="icon" xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg> Lọc theo năm</label>
+          <select id="filterYear" class="form-control" style="cursor: pointer;">
+            <option value="all">Tất cả năm</option>
+          </select>
+        </div>
+        <div style="flex: 1.2; min-width: 180px; display: flex; flex-direction: column; gap: var(--space-2);">
+          <label for="filterDirector" style="font-size: 11px; color: var(--text-muted); font-family: 'Space Mono', monospace; text-transform: uppercase; letter-spacing: 0.5px; display: flex; align-items: center; gap: 6px;"><svg class="icon" xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg> Lọc theo đạo diễn</label>
+          <select id="filterDirector" class="form-control" style="cursor: pointer;">
+            <option value="all">Tất cả đạo diễn</option>
+          </select>
         </div>
       </div>
 

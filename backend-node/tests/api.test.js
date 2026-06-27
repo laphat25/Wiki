@@ -50,11 +50,11 @@ describe('Doraemon Wiki API', () => {
     assert.equal(res.body.database, 'ok');
   });
 
-  it('GET /api/movies returns 43 movies', async () => {
+  it('GET /api/movies returns 45 movies', async () => {
     const res = await request(app).get('/api/movies');
     assert.equal(res.status, 200);
     assert.ok(Array.isArray(res.body));
-    assert.equal(res.body.length, 43);
+    assert.equal(res.body.length, 45);
   });
 
   it('GET /api/movies?featured=true returns featured movies', async () => {
@@ -69,7 +69,7 @@ describe('Doraemon Wiki API', () => {
     assert.equal(res.status, 200);
     assert.ok(Array.isArray(res.body.data));
     assert.equal(res.body.data.length, 10);
-    assert.equal(res.body.pagination.total, 43);
+    assert.equal(res.body.pagination.total, 45);
   });
 
   it('GET /api/movies/:id returns movie detail', async () => {

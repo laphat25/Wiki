@@ -139,7 +139,8 @@ function initUpload(movieId) {
       });
       const data = await res.json();
       if (data.success) {
-        if (infoImg) infoImg.style.backgroundImage = `url(${data.url}?t=${Date.now()})`;
+        const resolved = typeof window.resolveImageUrl === 'function' ? window.resolveImageUrl(data.url) : data.url;
+        if (infoImg) infoImg.style.backgroundImage = `url(${resolved}?t=${Date.now()})`;
         showFb('success', 'Đã lưu ảnh bìa!');
         showToast('Ảnh bìa đã được cập nhật!', 'success');
         setTimeout(hideFb, 2500);
